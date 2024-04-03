@@ -1,3 +1,7 @@
+<?php
+require 'includes/autoloader.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
