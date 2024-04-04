@@ -1,8 +1,11 @@
 <?php
 require 'includes/autoloader.php';
-$new = new UniversityView();
-$new->test();
-die();
+$email1 = "kristiankharl.tare@nmsc.edu.ph";
+if(strpos($email1,'edu') !== false){
+    echo "naa";
+}else{
+    echo "wla";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
