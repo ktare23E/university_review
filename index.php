@@ -1,11 +1,11 @@
 <?php
 require 'includes/autoloader.php';
-$email1 = "kristiankharl.tare@nmsc.edu.ph";
-if(strpos($email1,'edu') !== false){
-    echo "naa";
-}else{
-    echo "wla";
+$init = new UniversityView();
+$data = $init->studentData(1);
+foreach($data as $key => $data){
+    echo $key ."=". $data."<br>";
 }
+die();
 ?>
 <!DOCTYPE html>
 <html lang="en">

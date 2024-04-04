@@ -32,6 +32,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    public function retrieveStudentDetails($student_id){
+        try{
+            $sql = "SELECT * FROM student WHERE student_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$student_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function studentRegistration($student_firstname,$student_lastname,$student_email,$student_password,$university_id){
         try{
             //check student email if email is edu
@@ -48,7 +60,7 @@ Class University extends ConnectDatabase{
         }catch(PDOException $e){
             echo "ERror! ".$e->getMessage();
         }
-    }   
+    }
 }
 
 ?>
