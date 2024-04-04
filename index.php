@@ -1,6 +1,8 @@
 <?php
 require 'includes/autoloader.php';
-
+$new = new UniversityView();
+$new->test();
+die();
 ?>
 <!DOCTYPE html>
 <html lang="en">
