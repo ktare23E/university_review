@@ -61,6 +61,13 @@ Class University extends ConnectDatabase{
             echo "ERror! ".$e->getMessage();
         }
     }
+
+    protected function checkSession($session_name){
+        if(!isset($_SESSION[''.$session_name.''])){
+            header("location:../index.php");
+        }
+    }
+
 }
 
 ?>

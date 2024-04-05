@@ -2,10 +2,7 @@
 require 'includes/autoloader.php';
 $init = new UniversityView();
 $data = $init->studentData(1);
-foreach($data as $key => $data){
-    echo $key ."=". $data."<br>";
-}
-die();
+echo $data["student_firstname"]
 ?>
 <!DOCTYPE html>
 <html lang="en">
