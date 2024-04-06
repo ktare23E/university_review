@@ -87,6 +87,17 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function createCourse($course_name,$course_description){
+        try{
+            $sql = "INSERT INTO course (course_name,course_description)
+                    VALUES(?,?)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$course_name,$course_description]);
+        }catch(PDOException $e){
+
+        }
+    }
+
     protected function studentReview($university_id,$student_id,$university_rating_description,$rating){
         try{
             $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
