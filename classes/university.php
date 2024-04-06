@@ -68,6 +68,25 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function createUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
+        try{
+            //check if university exist
+            $query = "SELECT * FROM university WHERE university_email = ?";
+            $result  = $this->connect()->prepare($query);
+            $result->execute([$university_email]);
+            if($result->rowCount() > 0){
+                return 'already existed';
+            }else{
+                $sql = "INSERT INTO university (university_name,university_address,university_email,university_status,university_description) VALUES(?,?,?,?,?)";
+                $stmt = $this->connect()->prepare($sql);
+                $stmt->execute([$university_name,$university_address,$university_email,$university_status,$university_description]);
+                return 'success';
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function studentReview($university_id,$student_id,$university_rating_description,$rating){
         try{
             $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)

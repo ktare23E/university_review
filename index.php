@@ -1,8 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityControllers();
-$try = 'bati kaau sya';
-$init->insertRating(1,1,$try,2);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
