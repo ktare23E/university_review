@@ -16,4 +16,8 @@ class UniversityControllers extends University{
     public function insertCourse($course_name,$course_description){
         $this->createCourse($course_name,$course_description);
     }
+
+    public function insertUniversityCourse($university_id,$course_id,$status){
+        $this->universityCourse($university_id,$course_id,$status);
+    }
 }

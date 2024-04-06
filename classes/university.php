@@ -98,6 +98,17 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function universityCourse($university_id,$course_id,$status){
+        try{
+            $sql = "INSERT INTO university_course (university_id,course_id,status)
+                    VALUES(?,?,?)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id,$course_id,$status]);
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function studentReview($university_id,$student_id,$university_rating_description,$rating){
         try{
             $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
