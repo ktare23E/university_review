@@ -6,7 +6,7 @@ class UniversityControllers extends University{
     }
 
     public function insertRating($university_id,$student_id,$university_rating_description,$rating){
-        $this->studentReview($university_id,$student_id,$university_rating_description,$rating);
+        return $this->studentReview($university_id,$student_id,$university_rating_description,$rating);
     }
 
     public function insertUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
