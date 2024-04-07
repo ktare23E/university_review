@@ -130,10 +130,8 @@ Class University extends ConnectDatabase{
             $student_domain = substr(strchr($student_email, "@"), 1);
             $university_domain = substr(strchr($university_email, "@"), 1);
 
-   
-
             //check if student go to the same university using email
-            if($student_domain == $university_domain){
+            if($student_domain === $university_domain){
                 $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
                 VALUES (?,?,?,?,CURRENT_DATE())";
                 $stmt = $this->connect()->prepare($sql);
@@ -144,6 +142,48 @@ Class University extends ConnectDatabase{
                 }else{
                     echo "error";
                 }
+            }else{
+                echo "different university";
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+    protected function studentUniversityCourseReview($university_course_id,$student_id,$course_rating,$course_rating_description){
+        try{
+            //retrieve student email
+            $retrieveStudentEmailQuery = "SELECT * FROM student WHERE student_id = ?";
+            $stmtStudentResult = $this->connect()->prepare($retrieveStudentEmailQuery);
+            $stmtStudentResult->execute([$student_id]);
+            $studentRow = $stmtStudentResult->fetch();
+            $student_email = $studentRow['student_email'];
+
+            //retrieve university email 
+            $retrieveUniversityEmailQuery = "SELECT * FROM university_course_view WHERE university_course_id = ? GROUP BY university_id";
+            $stmtResult = $this->connect()->prepare($retrieveUniversityEmailQuery);
+            $stmtResult->execute([$university_course_id]);
+            $universityRow = $stmtResult->fetch();
+            $university_email = $universityRow['university_email'];
+
+            //extract domain name
+            $student_domain = substr(strchr($student_email, "@"), 1);
+            $university_domain = substr(strchr($university_email, "@"), 1);
+
+            //check if student go to the same university using email
+            if($student_domain === $university_domain){
+                $sql = "INSERT INTO university_course_rating (university_course_id,student_id,course_rating,course_rating_description,date_occurred)
+                VALUES (?,?,?,?,CURRENT_DATE())";
+                $stmt = $this->connect()->prepare($sql);
+                $stmt->execute([$university_course_id,$student_id,$course_rating,$course_rating_description]);
+
+                //check if the query is successful
+                if($stmt){
+                    echo "success";
+                }else{
+                    echo "error";
+                }
+                
             }else{
                 echo "different university";
             }
