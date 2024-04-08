@@ -202,6 +202,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayUniversityCourse($university_id){
+        try{
+            $sql = "SELECT * FROM university_course_view WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $stmt = $stmt->fetchAll();
+            return $stmt;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function retrieveStudentDetails($student_id){
         try{
             $sql = "SELECT * FROM student WHERE student_id = ?";

@@ -1,11 +1,11 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityView();
-$data = $init->studentDataForAdmin();
+$data = $init->universityCourseData(1);
 
 //display all data 
-foreach($data as $student){
-    echo $student['student_firstname']." ".$student['student_lastname']." ".$student['student_email']."<br>";
+foreach($data as $row){
+    echo $row['course_name']." ".$row['course_description']."<br>";
 }
 ?>
 <!DOCTYPE html>
