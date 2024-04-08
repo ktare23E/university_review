@@ -1,11 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityView();
-$data = $init->universityCourseRating(3);
 
-foreach($data as $row){
-    echo "Rating = ".$row['course_rating'].' Course Rating Description= '.$row['course_rating_description'].'<br>';
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
