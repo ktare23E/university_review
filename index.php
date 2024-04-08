@@ -1,7 +1,12 @@
 <?php
 require 'includes/autoloader.php';
-$init = new UniversityControllers(); 
-// $init->insertUniversityCourseReview(3,1,3,'Bati ning IT');
+$init = new UniversityView();
+$data = $init->courseData();
+
+//display all data 
+foreach($data as $row){
+    echo $row['course_name']." ".$row['course_description']."<br>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

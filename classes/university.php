@@ -180,6 +180,17 @@ Class University extends ConnectDatabase{
         }
     }
 
+    public function displayCourse(){
+        try{
+            $sql = "SELECT * FROM course";
+            $stmt = $this->connect()->query($sql);
+            $stmt = $stmt->fetchAll();
+            return $stmt;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     public function retrieveStudentDetails($student_id){
         try{
             $sql = "SELECT * FROM student WHERE student_id = ?";
