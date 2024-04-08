@@ -2,17 +2,7 @@
 
 Class University extends ConnectDatabase{
 
-    protected function displayUniversity(){
-        try{
-            $sql = "SELECT * FROM university";
-            $stmt = $this->connect()->query($sql);
-            while($row=$stmt->fetch()){
-                echo $row['university_name']." ".$row['university_address']."<br>";
-            }
-        }catch(PDOException $e){
-            echo "ERROR! ".$e->getMessage();
-        }
-    }
+    //insert or create functionalities 
 
     protected function login($email,$password){
         try{
@@ -32,17 +22,6 @@ Class University extends ConnectDatabase{
         }
     }
 
-    public function retrieveStudentDetails($student_id){
-        try{
-            $sql = "SELECT * FROM student WHERE student_id = ?";
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$student_id]);
-            $row = $stmt->fetch();
-            return $row;
-        }catch(PDOException $e){
-            echo "ERROR! ".$e->getMessage();
-        }
-    }
 
     protected function studentRegistration($student_firstname,$student_lastname,$student_email,$student_password,$university_id){
         try{
@@ -62,11 +41,7 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function checkSession($session_name){
-        if(!isset($_SESSION[''.$session_name.''])){
-            header("location:../index.php");
-        }
-    }
+
 
     protected function createUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
         try{
@@ -189,6 +164,38 @@ Class University extends ConnectDatabase{
             }
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+    //display or view functionalities
+    protected function displayUniversity(){
+        try{
+            $sql = "SELECT * FROM university";
+            $stmt = $this->connect()->query($sql);
+            while($row=$stmt->fetch()){
+                echo $row['university_name']." ".$row['university_address']."<br>";
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+    public function retrieveStudentDetails($student_id){
+        try{
+            $sql = "SELECT * FROM student WHERE student_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$student_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+    //session functionalities
+    protected function checkSession($session_name){
+        if(!isset($_SESSION[''.$session_name.''])){
+            header("location:../index.php");
         }
     }
 

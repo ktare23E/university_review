@@ -1,7 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityControllers(); 
-$init->insertUniversityCourseReview(3,1,3,'Bati ning IT');
+// $init->insertUniversityCourseReview(3,1,3,'Bati ning IT');
 ?>
 <!DOCTYPE html>
 <html lang="en">
