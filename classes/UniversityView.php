@@ -9,4 +9,8 @@ class UniversityView extends University{
     public function courseData(){
         return $this->displayCourse();
     }
+
+    public function studentDataForAdmin(){
+        return $this->displayStudents();
+    }
 }
