@@ -1,14 +1,10 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityView();
-$rows = $init->universityRatingData(2);
+$data = $init->universityCourseRating(3);
 
-if(empty($rows)){
-    echo "No ratings yet";
-}else{
-    foreach ($rows as $row) {
-        echo 'Rating ='.$row['rating']."<br>";
-      }
+foreach($data as $row){
+    echo "Rating = ".$row['course_rating'].' Course Rating Description= '.$row['course_rating_description'].'<br>';
 }
 ?>
 <!DOCTYPE html>

@@ -21,4 +21,8 @@ class UniversityView extends University{
     public function universityRatingData($university_id){
         return $this->displayUniversityRating($university_id);
     }   
+
+    public function universityCourseRating($university_course_id){
+        return $this->displayUniversityCourseRating($university_course_id);
+    }
 }

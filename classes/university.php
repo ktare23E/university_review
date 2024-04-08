@@ -214,11 +214,24 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function displayUniversityRating($university_id):iterable{
+    protected function displayUniversityRating($university_id){
         try{
             $sql = "SELECT * FROM university_rating WHERE university_id = ?";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$university_id]);
+            $stmt = $stmt->fetchAll();
+            return $stmt;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+    protected function displayUniversityCourseRating($university_course_id){
+        try{
+            //retrieve all university course using university id
+            $retrieveSql = "SELECT * FROM university_course_rating WHERE university_course_id = ?";
+            $stmt = $this->connect()->prepare($retrieveSql);
+            $stmt->execute([$university_course_id]);
             $stmt = $stmt->fetchAll();
             return $stmt;
         }catch(PDOException $e){
