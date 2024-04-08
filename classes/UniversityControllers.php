@@ -24,4 +24,12 @@ class UniversityControllers extends University{
     public function insertUniversityCourseReview($university_course_id,$student_id,$course_rating,$course_rating_description){
         return $this->studentUniversityCourseReview($university_course_id,$student_id,$course_rating,$course_rating_description);
     }
+
+    public function checkSession($session_name,$path){
+        return $this->checkSessionSet($session_name,$path);
+    }
+
+    public function checkNoSession($session_name){
+        return $this->checkSessionNotSet($session_name);
+    }
 }

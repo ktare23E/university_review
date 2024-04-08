@@ -252,9 +252,15 @@ Class University extends ConnectDatabase{
     }
 
     //session functionalities
-    protected function checkSession($session_name){
+    protected function checkSessionNotSet($session_name){
         if(!isset($_SESSION[''.$session_name.''])){
             header("location:../index.php");
+        }
+    }
+
+    protected function checkSessionSet($session_name,$path){
+        if(isset($_SESSION[''.$session_name.''])){
+            header("location:".$path."/index.php");
         }
     }
 
