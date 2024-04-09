@@ -32,4 +32,8 @@ class UniversityControllers extends University{
     public function checkNoSession($session_name){
         return $this->checkSessionNotSet($session_name);
     }
+
+    public function updateUniversityControllers($university_id,$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition){
+        return $this->updateUniversity($university_id,$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition);
+    }
 }

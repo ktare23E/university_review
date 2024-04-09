@@ -1,6 +1,7 @@
 <?php
 require 'includes/autoloader.php';
-$init = new UniversityView();
+$init = new UniversityControllers();
+$init->updateUniversityControllers(3,'La Salle Edited','Ozamis City Edited','lassale@gmail.com','Active','La Salle University','Private',50000);
 
 ?>
 <!DOCTYPE html>

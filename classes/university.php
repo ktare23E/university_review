@@ -264,6 +264,23 @@ Class University extends ConnectDatabase{
         }
     }
 
+
+    //update functions
+    protected function updateUniversity($university_id,$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition){
+        try{
+            $sql = "UPDATE university SET university_name = ?,university_address = ?,university_email = ?,university_status = ?,university_description = ?,university_type = ?,university_tuition = ? WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition,$university_id]);
+            if($stmt){
+                echo 'success';
+            }else{
+                echo 'error';
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
 }
 
 ?>
