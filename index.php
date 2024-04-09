@@ -1,7 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityControllers();
-$init->updateStudentControllers(2,'Rosendo Edited','Debalocos Edited','rosendo@gadtc.edu.ph','123Edited','2');
+$init->updateUniversityCourseControllers(1,1,3,'Inactive');
 ?>
 <!DOCTYPE html>
 <html lang="en">
