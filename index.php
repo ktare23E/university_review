@@ -1,8 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityControllers();
-$init->updateUniversityControllers(3,'La Salle Edited','Ozamis City Edited','lassale@gmail.com','Active','La Salle University','Private',50000);
-
+$init->updateCourseControllers(3,'BS-ED Math Edited','Edited Course ni sya');
 ?>
 <!DOCTYPE html>
 <html lang="en">
