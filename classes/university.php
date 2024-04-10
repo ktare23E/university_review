@@ -86,39 +86,47 @@ Class University extends ConnectDatabase{
 
     protected function studentReview($university_id,$student_id,$university_rating_description,$rating){
         try{
-            //retrieve student email
-            $retrieveStudentEmailQuery = "SELECT * FROM student WHERE student_id = ?";
-            $stmtStudentResult = $this->connect()->prepare($retrieveStudentEmailQuery);
-            $stmtStudentResult->execute([$student_id]);
-            $studentRow = $stmtStudentResult->fetch();
-            $student_email = $studentRow['student_email'];
-        
-
-            // retrieve university email
-            $retrieveUniversityEmailQuery = "SELECT * FROM university WHERE university_id = ?";
-            $stmtResult = $this->connect()->prepare($retrieveUniversityEmailQuery);
-            $stmtResult->execute([$university_id]);
-            $universityRow = $stmtResult->fetch();
-            $university_email = $universityRow['university_email'];
-
-            //extract domain name
-            $student_domain = substr(strchr($student_email, "@"), 1);
-            $university_domain = substr(strchr($university_email, "@"), 1);
-
-            //check if student go to the same university using email
-            if($student_domain === $university_domain){
-                $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
-                VALUES (?,?,?,?,CURRENT_DATE())";
-                $stmt = $this->connect()->prepare($sql);
-                $stmt->execute([$university_id,$student_id,$university_rating_description,$rating]);
-                //check if the query is successful
-                if($stmt){
-                    echo "success";
-                }else{
-                    echo "error";
-                }
+            
+            //check if student already rated
+            $checkStudentRatingQuery = 'SELECT * FROM university_rating WHERE student_id = ?';
+            $stmtCheckStudentRating = $this->connect()->prepare($checkStudentRatingQuery);
+            $stmtCheckStudentRating->execute([$student_id]);
+            if($stmtCheckStudentRating->rowCount() > 0){
+                echo 'already rated';
             }else{
-                echo "different university";
+                //retrieve student email
+                $retrieveStudentEmailQuery = "SELECT * FROM student WHERE student_id = ?";
+                $stmtStudentResult = $this->connect()->prepare($retrieveStudentEmailQuery);
+                $stmtStudentResult->execute([$student_id]);
+                $studentRow = $stmtStudentResult->fetch();
+                $student_email = $studentRow['student_email'];
+            
+
+                // retrieve university email
+                $retrieveUniversityEmailQuery = "SELECT * FROM university WHERE university_id = ?";
+                $stmtResult = $this->connect()->prepare($retrieveUniversityEmailQuery);
+                $stmtResult->execute([$university_id]);
+                $universityRow = $stmtResult->fetch();
+                $university_email = $universityRow['university_email'];
+
+                //extract domain name
+                $student_domain = substr(strchr($student_email, "@"), 1);
+                $university_domain = substr(strchr($university_email, "@"), 1);
+                    //check if student go to the same university using email
+                if($student_domain === $university_domain){
+                    $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
+                    VALUES (?,?,?,?,CURRENT_DATE())";
+                    $stmt = $this->connect()->prepare($sql);
+                    $stmt->execute([$university_id,$student_id,$university_rating_description,$rating]);
+                    //check if the query is successful
+                    if($stmt){
+                        echo "success";
+                    }else{
+                        echo "error";
+                    }
+                }else{
+                    echo "different university";
+                }
             }
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
