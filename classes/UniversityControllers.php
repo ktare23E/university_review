@@ -48,4 +48,8 @@ class UniversityControllers extends University{
     public function updateUniversityCourseControllers($university_course_id,$university_id,$course_id,$status){
         return $this->universityCourse($university_course_id,$university_id,$course_id,$status);
     }
+
+    public function updateUniversityCourseRatingControllers($student_id,$course_rating,$course_rating_description){
+        return $this->updateUniversityCourseRating($student_id,$course_rating,$course_rating_description);
+    }
 }

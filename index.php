@@ -1,7 +1,7 @@
 <?php
 require 'includes/autoloader.php';
 $init = new UniversityControllers();
-$init->updateUniversityCourseControllers(1,1,3,'Inactive');
+$init->updateUniversityCourseRatingControllers(1,5,'Lindot ning IT')
 ?>
 <!DOCTYPE html>
 <html lang="en">
