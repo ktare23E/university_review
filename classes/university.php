@@ -343,6 +343,21 @@ Class University extends ConnectDatabase{
         }
         
     }
+
+    protected function updateUniversityRating($student_id,$rating,$university_rating_description){
+        try{
+            $sql = "UPDATE university_rating SET rating = ?,university_rating_description = ?,date_occurred = CURRENT_DATE() WHERE student_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$rating,$university_rating_description,$student_id]);
+            if($stmt){
+                echo 'success';
+            }else{
+                echo 'error';
+            }
+        }catch(PDOException $e){
+            echo 'ERROR! '.$e->getMessage();
+        }
+    }
 }
 
 ?>
