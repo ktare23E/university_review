@@ -189,9 +189,8 @@ Class University extends ConnectDatabase{
         try{
             $sql = "SELECT * FROM university";
             $stmt = $this->connect()->query($sql);
-            while($row=$stmt->fetch()){
-                echo $row['university_name']." ".$row['university_address']."<br>";
-            }
+            $data = $stmt->fetchAll();
+            return $data;
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
