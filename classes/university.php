@@ -25,17 +25,53 @@ Class University extends ConnectDatabase{
 
     protected function studentRegistration($student_firstname,$student_lastname,$student_email,$student_password,$university_id){
         try{
-            //check student email if email is edu
-            if(strpos($student_email,'edu') !== false){
+            //check if first name and last name is empty
+            $errors = [];
+            if(empty($student_firstname)){
+                $errors[] = 'First name is required';
+            }
+
+            if(empty($student_lastname)){
+                $errors[] = 'Last name is required';
+            }
+
+            if(empty($student_email)){
+                $errors[] = 'Email is required';
+            }else{
+                 //check if email is valid
+                if(!filter_var($student_email,FILTER_VALIDATE_EMAIL)){
+                    $errors[] = 'Email is invalid';
+                }
+                
+                if(strpos($student_email,'edu') === false){
+                    $errors[] = 'Email must be an institutional email';
+                }
+            }
+
+
+            if(empty($student_password)){
+                $errors[] = 'Password is required';
+            }else{
+                $hashed_password = password_hash($student_password,PASSWORD_DEFAULT);
+            }
+
+            if(empty($university_id)){
+                $errors[] = 'University is required';
+            }
+
+
+            if(empty($errors)){
                 //insert query 
                 $sql = "INSERT INTO student (student_firstname,student_lastname,student_email,student_password,university_id)
-                        VALUES(?,?,?,?,?)";
+                VALUES(?,?,?,?,?)";
                 $stmt = $this->connect()->prepare($sql);
-                $stmt->execute([$student_firstname,$student_lastname,$student_email,$student_password,$university_id]);
+                $stmt->execute([$student_firstname,$student_lastname,$student_email,$hashed_password,$university_id]);
                 header("location:register.php?success=1");
-            }else{  
-                header("location:register.php?failed=1");
+            }else{
+                $bulkError = json_encode($errors);
+                header("location:register.php?errors=".urlencode($bulkError));
             }
+
         }catch(PDOException $e){
             echo "ERror! ".$e->getMessage();
         }
@@ -185,7 +221,7 @@ Class University extends ConnectDatabase{
     }
 
     //display or view functionalities
-    protected function displayUniversity(){
+    protected function displayUniversity():iterable{
         try{
             $sql = "SELECT * FROM university";
             $stmt = $this->connect()->query($sql);
@@ -279,7 +315,6 @@ Class University extends ConnectDatabase{
             header("location:".$path."/index.php");
         }
     }
-
 
     //update functions
     protected function updateUniversity($university_id,$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition){
