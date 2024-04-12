@@ -1,0 +1,18 @@
+.password-container,.confirm_password_container{
+    position: relative;
+}
+
+.eye-icon,.confirm-eye-icon{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.close_eye_icon,.confirm_close_eye_icon{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    display: none;
+}
