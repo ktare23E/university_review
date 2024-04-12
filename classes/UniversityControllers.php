@@ -60,4 +60,8 @@ class UniversityControllers extends University{
     public function checkStudentEmailControllers($student_email){
         return $this->checkStudentEmail($student_email);
     }
+
+    public function loginControllers($email,$password){
+        $this->login($email,$password);
+    }
 }

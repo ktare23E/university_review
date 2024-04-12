@@ -6,17 +6,47 @@ Class University extends ConnectDatabase{
 
     protected function login($email,$password){
         try{
-            if(strpos($email,'edu') !== false){
-                $sql = "SELECT * FROM student WHERE student_email = ? AND student_password = ?";
+            if(!empty($email) && !empty($password)){
+                $sql = "SELECT * FROM student WHERE student_email = ?";
                 $stmt = $this->connect()->prepare($sql);
-                $stmt->execute([$email,$password]);
-                $row = $stmt->fetch();
-                session_start();
-                $_SESSION['student_id'] = $row['student_id'];
-                header("location:student/index.php");
-            }else{
-                header("location:login.php?failed=1");
-            }
+                $stmt->execute([$email]);
+
+                $sql2 = "SELECT * FROM admin WHERE admin_email = ?";
+                $stmt2 = $this->connect()->prepare($sql2);
+                $stmt2->execute([$email]);
+    
+                if($stmt->rowCount() > 0){
+                    $row = $stmt->fetch();
+                    $student_password = $row['student_password'];
+
+                    //check password same as the hashed
+                    if(password_verify($password,$student_password)){
+                        session_start();
+                        $_SESSION['student_id'] = $row['student_id'];
+                        $_SESSION['isStudent'] = 1;
+                        header("location:student/index.php");
+                    }else{
+                        header("location:login.php?error=Password does not match!");
+                    }
+                }elseif($stmt2->rowCount() > 0){
+                    $row = $stmt2->fetch();
+                    $admin_password = $row['admin_password'];
+
+                    //check password same as the hashed
+                    if($password === $admin_password){
+                        session_start();
+                        $_SESSION['admin_id'] = $row['admin_id'];
+                        $_SESSION['isAdmin'] = 1;
+                        header("location:admin/index.php");
+                    }else{
+                        header("location:login.php?error=Password does not match!");
+                    }
+                }
+                else{
+                    header("location:login.php?error=Email does not exist!");
+                }
+            } 
+        
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
