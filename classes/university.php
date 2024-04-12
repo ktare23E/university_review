@@ -316,6 +316,15 @@ Class University extends ConnectDatabase{
         }
     }
 
+    //check student email if institutional email using ajax
+    protected function checkStudentEmail($email){
+        if (preg_match('/^[^@]+@[^@]+\.[^@]*(edu\.ph)$/', $email)) {
+            echo 'success';
+        } else {
+            echo 'error';
+        }
+    }
+
     //update functions
     protected function updateUniversity($university_id,$university_name,$university_address,$university_email,$university_status,$university_description,$university_type,$university_tuition){
         try{

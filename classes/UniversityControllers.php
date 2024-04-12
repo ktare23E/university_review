@@ -56,4 +56,8 @@ class UniversityControllers extends University{
     public function updateUniversityRatingControllers($student_id,$rating,$university_rating_description){
         return $this->updateUniversityRating($student_id,$rating,$university_rating_description);
     }
+
+    public function checkStudentEmailControllers($student_email){
+        return $this->checkStudentEmail($student_email);
+    }
 }

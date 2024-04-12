@@ -64,6 +64,7 @@ if(isset($_POST['submit'])){
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
                                 <input type="email" name="student_email" id="student_email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@nmsc.edu.ph" required="">
+                                <p class="result text-[10px]"></p>
                             </div>
                             <div>
                                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
@@ -90,6 +91,25 @@ if(isset($_POST['submit'])){
     </section>
 </body>
 <script>
-    
+    //check student email if it is institutional email
+    $('#student_email').on('input',function(){
+        var student_email = $(this).val();
+        $.ajax({
+            url: 'includes/checkStudentEmail.php',
+            type: 'POST',
+            data: {student_email:student_email},
+            success: function(response){
+                if(response === 'error'){
+                    $('.result').html('Invalid Email').addClass('text-red-500').removeClass('text-green-500');
+                }else{
+                    $('.result').removeClass('text-red-500').html('Valid Email').addClass('text-green-500');
+                }
+
+                if(student_email === ''){
+                    $('.result').html('');
+                }
+            }
+        });
+    });
 </script>
 </html>
