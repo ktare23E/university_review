@@ -251,12 +251,76 @@ Class University extends ConnectDatabase{
     }
 
     //display or view functionalities
-    protected function displayUniversity():iterable{
+    protected function displayUniversity($pageNumber){
         try{
+            $offset = ($pageNumber - 1) * 6; 
             $sql = "SELECT * FROM university";
             $stmt = $this->connect()->query($sql);
-            $data = $stmt->fetchAll();
-            return $data;
+            $rowNumbers = $stmt->rowCount();
+
+            $sql .= " ORDER BY university_id LIMIT $offset,6";
+            $stmt = $this->connect()->query($sql);
+
+            $universities = [];
+            if($stmt->rowCount() > 0){
+                while($row = $stmt->fetchAll()){
+                    $universities[] = $row;
+                }
+            }
+
+            $totalRows = $rowNumbers;
+            $totalPages = ceil($totalRows / 6);
+            $html = '';
+            foreach($universities as $university){
+                foreach($university as $value){
+                    $html .= '<div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden"> <!-- Simplified card container -->
+                                <a href="#">
+                                    <img class="w-full h-40 object-cover" src="imgs/'.$value['university_image'].'" alt="" /> <!-- Ensured image covers card top evenly -->
+                                </a>
+                                <div class="p-5">
+                                    <a href="#">
+                                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">'.$value['university_name'].'</h5>
+                                    </a>
+                                    <p class="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                                    <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                        Read more
+                                        <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>';
+                }
+
+            }
+            $pageHtml = '';
+
+            $pageHtml .= '
+            <nav aria-label="Page navigation example">
+                <div class="inline-flex -space-x-px text-sm">
+                    <button class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        Previous
+                    </button>';
+            for($i = 1; $i<= $totalPages; $i++){
+                if($i == $pageNumber){
+                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-700 border border-gray-300 rounded-s-lg hover:bg-blue-800 hover:text-white">'.$i.'</button>';
+                }else{
+                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">'.$i.'</button>';
+                }
+            }
+
+            $pageHtml .= '
+                    <button class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onclick="nextPage('.$pageNumber.','.$totalPages.')">
+                        Next
+                    </button>
+                </div>
+            </nav>';
+            $htmlTags = [
+                'html' => $html,
+                'pageHtml' => $pageHtml
+            ];
+            return $htmlTags;
+            
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
