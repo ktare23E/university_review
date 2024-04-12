@@ -13,7 +13,7 @@ if(isset($_GET['success'])){
 }
 
 $init = new UniversityView();
-$universities = $init->universityData();
+$universities = $init->retrieveUniversityView();
 
 if(isset($_POST['submit'])){
     $student_firstname = $_POST['student_fistname'];
