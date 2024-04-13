@@ -298,14 +298,14 @@ Class University extends ConnectDatabase{
             $pageHtml .= '
             <nav aria-label="Page navigation example">
                 <div class="inline-flex -space-x-px text-sm">
-                    <button class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <button class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onclick="previousPage('.$pageNumber.')">
                         Previous
                     </button>';
             for($i = 1; $i<= $totalPages; $i++){
                 if($i == $pageNumber){
-                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-700 border border-gray-300 rounded-s-lg hover:bg-blue-800 hover:text-white">'.$i.'</button>';
+                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-white bg-blue-700 border border-gray-300 rounded-s-lg hover:bg-blue-800 hover:text-white" onclick="changePage('.$i.')">'.$i.'</button>';
                 }else{
-                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">'.$i.'</button>';
+                    $pageHtml .= '<button class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" onclick="changePage('.$i.')">'.$i.'</button>';
                 }
             }
 
@@ -315,6 +315,7 @@ Class University extends ConnectDatabase{
                     </button>
                 </div>
             </nav>';
+
             $htmlTags = [
                 'html' => $html,
                 'pageHtml' => $pageHtml
