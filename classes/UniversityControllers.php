@@ -64,4 +64,8 @@ class UniversityControllers extends University{
     public function loginControllers($email,$password){
         $this->login($email,$password);
     }
+
+    public function searchUniversityControllers($pageNumber,$searchItem){
+        return $this->searchUniversity($pageNumber,$searchItem);
+    }
 }
