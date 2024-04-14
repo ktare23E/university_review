@@ -275,7 +275,8 @@ Class University extends ConnectDatabase{
             $html = '';
             foreach($universities as $university){
                 foreach($university as $value){
-                    $html .= '<div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden"> <!-- Simplified card container -->
+                    $html .= '
+                        <div class="bg-white border border-gray-200 rounded-lg shadow overflow-hidden"> <!-- Simplified card container -->
                                 <a href="#">
                                     <img class="w-full h-40 object-cover" src="imgs/'.$value['university_image'].'" alt="" /> <!-- Ensured image covers card top evenly -->
                                 </a>
@@ -291,7 +292,7 @@ Class University extends ConnectDatabase{
                                         </svg>
                                     </a>
                                 </div>
-                            </div>';
+                        </div>';
                 }
 
             }
