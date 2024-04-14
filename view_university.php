@@ -19,7 +19,11 @@ include_once 'includes/autoloader.php';
 
         //avg rating
         $avgRating = $init->displayRoundAvgRatingView($university_id);
-        echo $avgRating['rating'];
+        if($avgRating['rating'] === null){
+            echo 'wla pay nag rate';
+        }else{
+            echo $avgRating['rating'];
+        }
     }else{
         include_once '404.php';
         die();
