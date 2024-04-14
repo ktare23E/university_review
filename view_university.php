@@ -63,7 +63,13 @@ include_once 'includes/autoloader.php';
                     </div>
                 </div>
                 <div class="rating_section">
-                    
+                    <h1>University Rating</h1>
+                        <?php foreach($universityRatingData as $ratings): ?>
+                            <div class="rating">
+                                <h2><?= $ratings['rating']; ?></h2>
+                                <p><?= $ratings['university_rating_description']; ?></p>
+                            </div>
+                        <?php endforeach; ?>
                 </div>
             </div>
         </div>
