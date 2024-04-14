@@ -18,6 +18,10 @@ class UniversityView extends University{
         return $this->displayUniversity($pageNumber);
     }
 
+    public function displayCertainUniversityView($university_id){
+        return $this->displayCertainUniversity($university_id);
+    }
+
     public function retrieveUniversityView(){
         return $this->retrieveUniversity();
     }

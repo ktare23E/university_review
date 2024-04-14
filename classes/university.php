@@ -285,7 +285,7 @@ Class University extends ConnectDatabase{
                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">'.$value['university_name'].'</h5>
                                     </a>
                                     <p class="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                                    <a href="view_university.php" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                    <a href="view_university.php?university_id='.$value['university_id'].'" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                         Read more
                                         <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -465,13 +465,25 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayCertainUniversity($university_id){
+        try{
+            $sql = "SELECT * FROM university WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $row = $stmt->fetch();
+            
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayUniversityCourse($university_id){
         try{
             $sql = "SELECT * FROM university_course_view WHERE university_id = ?";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$university_id]);
-            $stmt = $stmt->fetchAll();
-            return $stmt;
+            $row = $stmt->fetchAll();
+            return $row;
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
