@@ -465,6 +465,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayRoundAvgRatings($university_id){
+        try{
+            $sql = "SELECT ROUND(AVG(rating),1) as rating FROM university_rating WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayCertainUniversity($university_id){
         try{
             $sql = "SELECT * FROM university WHERE university_id = ?";

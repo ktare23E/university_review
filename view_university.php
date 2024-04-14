@@ -16,6 +16,10 @@ include_once 'includes/autoloader.php';
         
         //university rating data
         $universityRatingData = $init->universityRatingData($university_id);
+
+        //avg rating
+        $avgRating = $init->displayRoundAvgRatingView($university_id);
+        echo $avgRating['rating'];
     }else{
         include_once '404.php';
         die();

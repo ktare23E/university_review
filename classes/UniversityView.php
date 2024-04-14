@@ -22,6 +22,10 @@ class UniversityView extends University{
         return $this->displayCertainUniversity($university_id);
     }
 
+    public function displayRoundAvgRatingView($university_id){
+        return $this->displayRoundAvgRatings($university_id);
+    }
+
     public function retrieveUniversityView(){
         return $this->retrieveUniversity();
     }
