@@ -7,7 +7,7 @@ include_once 'includes/autoloader.php';
 
         //university Data
         $row = $init->displayCertainUniversityView($university_id);
-
+       
         //university course data
         $universityCourseData = $init->universityCourseData($university_id);
         // if(count($universityCourseData) === 0){
@@ -16,7 +16,6 @@ include_once 'includes/autoloader.php';
         
         //university rating data
         $universityRatingData = $init->universityRatingData($university_id);
-
     }else{
         include_once '404.php';
         die();
@@ -45,9 +44,27 @@ include_once 'includes/autoloader.php';
                 <span>Go back</span>
             </button>
 
-            <div class="university_info mt-5">
-                <!--  -->
-
+            <div class="university_info mt-5 p-[2.rem]">
+                <div class="university_image">
+                    <img src="imgs/<?= $row['university_image']?>" alt="" class="w-full h-64 object-cover rounded-lg">
+                </div>
+                <div class="university_info mt-3 w-full">
+                    <div class="w-[80%] border-green-400">
+                        <h1><?= $row['university_name']; ?></h1>
+                        <h2><p><?= $row['university_description'];?></p></h2>
+                    </div>
+                    <div class="university_courses w-[20%] border-red-600">
+                        <h1>University Courses</h1>
+                        <ul>
+                            <?php foreach($universityCourseData as $course):?>
+                                <li><?= $course['course_name']; ?></li>
+                            <?php endforeach;?>
+                        </ul>
+                    </div>
+                </div>
+                <div class="rating_section">
+                    
+                </div>
             </div>
         </div>
     </div>

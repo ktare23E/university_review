@@ -471,7 +471,7 @@ Class University extends ConnectDatabase{
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$university_id]);
             $row = $stmt->fetch();
-            
+            return $row;
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
