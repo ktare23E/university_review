@@ -10,7 +10,7 @@
 
 
 <body>
-    <div class="parent_class w-fit h-fit bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+    <div class="parent_class p-[2rem] h-screen py-0 bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%] mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
             <div class="header flex justify-between items-center mb-10"> <!-- Adding bottom margin for spacing -->
                 <div class="logo_container flex items-center gap-4"> <!-- Adjusted gap -->
