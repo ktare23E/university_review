@@ -513,6 +513,19 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayTopFiveCourses($university_id){
+        try{
+            //retrieve top 5 highest rating course 
+            $sql = "SELECT ROUND(AVG(course_rating),1) as rating,course_name FROM university_course_rating_view WHERE university_id = ? GROUP BY course_name ORDER BY rating DESC LIMIT 5";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $stmt = $stmt->fetchAll();
+            return $stmt;
+        }catch(PDOException $e){
+            echo "Error! ".$e->getMessage();
+        }
+    }
+
     protected function displayUniversityCourseRating($university_id){
         try{
             //retrieve all university course using university id
@@ -521,6 +534,7 @@ Class University extends ConnectDatabase{
             $stmtQuery->execute([$university_id]);
             $row = $stmtQuery->fetchAll();
             $university_course_id = [];
+
             foreach($row as $value){
                 $university_course_id[] = $value['university_course_id'];
             }

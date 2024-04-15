@@ -30,6 +30,10 @@ class UniversityView extends University{
         return $this->retrieveUniversity();
     }
 
+    public function displayTopFiveCoursesView($university_id){
+        return $this->displayTopFiveCourses($university_id);
+    }
+    
     public function universityCourseData($university_id){
         return $this->displayUniversityCourse($university_id);
     }

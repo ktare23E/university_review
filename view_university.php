@@ -27,11 +27,16 @@ include_once 'includes/autoloader.php';
 
         //retrieve all courses rating
         $courseRating = $init->universityCourseRating($university_id);
-        foreach($courseRating as $rating){
-            foreach($rating as $rate){
-                echo $rate['course_name'].' = '.$rate['course_rating'].'<br>';
-            }
-        }
+        // foreach($courseRating as $rating){
+        //     foreach($rating as $rate){
+        //         echo $rate['course_name'].' = '.$rate['course_rating'].'<br>';
+        //     }
+        // }
+
+        $topFiveCourses = $init->displayTopFiveCoursesView($university_id);
+        // foreach($topFiveCourses as $course){
+        //     echo $course['course_name'].'='.$course['rating'].'<br>';
+        // }
     }else{
         include_once '404.php';
         die();
