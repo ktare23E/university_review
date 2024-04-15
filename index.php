@@ -131,16 +131,22 @@
         if (pageNumber > 1) {
             displayUniversity(pageNumber - 1);
         }
+        checkChildElement(); // Call the function here
+
     }
 
     function nextPage(pageNumber, totalPages) {
         if (pageNumber < totalPages) {
             displayUniversity(pageNumber + 1);
         }
+        checkChildElement(); // Call the function here
+
     }
 
     function changePage(pageNumber) {
         displayUniversity(pageNumber);
+        checkChildElement(); // Call the function here
+
     }
 
     //check whole_container child element
