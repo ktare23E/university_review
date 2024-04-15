@@ -63,14 +63,15 @@ CREATE TABLE `student` (
   `student_password` varchar(75) NOT NULL,
   `university_id` int(11) NOT NULL,
   PRIMARY KEY (`student_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `student` */
 
 insert  into `student`(`student_id`,`student_firstname`,`student_lastname`,`student_email`,`student_password`,`university_id`) values 
 (1,'Hazel','Larita','hazel@nmsc.edu.ph','$2y$10$AXBsPdNgUvOcv5COH5mb5OnZl91SPpE6efy4PHE1E/c2WY1T4bl4u',1),
 (2,'Rosendo Edited','Debalocos Edited','rosendo@gadtc.edu.ph','123Edited',2),
-(3,'James','Probitso','james@msu.edu.ph','$2y$10$AXBsPdNgUvOcv5COH5mb5OnZl91SPpE6efy4PHE1E/c2WY1T4bl4u',1);
+(3,'James','Probitso','james@msu.edu.ph','$2y$10$AXBsPdNgUvOcv5COH5mb5OnZl91SPpE6efy4PHE1E/c2WY1T4bl4u',1),
+(4,'Febb','Edanio','febb.edano@nmsc.edu.ph','$2y$10$AXBsPdNgUvOcv5COH5mb5OnZl91SPpE6efy4PHE1E/c2WY1T4bl4u',1);
 
 /*Table structure for table `university` */
 
@@ -110,14 +111,15 @@ CREATE TABLE `university_course` (
   `course_id` int(11) NOT NULL,
   `status` varchar(75) NOT NULL,
   PRIMARY KEY (`university_course_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `university_course` */
 
 insert  into `university_course`(`university_course_id`,`university_id`,`course_id`,`status`) values 
-(1,0,3,'Inactive'),
-(2,1,1,'Active'),
-(3,1,1,'Active');
+(1,2,3,'Inactive'),
+(2,1,2,'Active'),
+(3,1,1,'Active'),
+(9,2,1,'Active');
 
 /*Table structure for table `university_course_rating` */
 
@@ -131,12 +133,15 @@ CREATE TABLE `university_course_rating` (
   `course_rating_description` varchar(225) NOT NULL,
   `date_occurred` date NOT NULL,
   PRIMARY KEY (`university_course_rating_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `university_course_rating` */
 
 insert  into `university_course_rating`(`university_course_rating_id`,`university_course_id`,`student_id`,`course_rating`,`course_rating_description`,`date_occurred`) values 
-(1,3,1,5,'Update ang duha','2024-04-10');
+(1,3,1,5,'Update ang duha','2024-04-10'),
+(3,9,2,1,'Bati ni nga course','2024-04-15'),
+(4,2,4,3,'Sakto lang sya','2024-04-15'),
+(5,3,4,2,'Bati man sya','2024-04-15');
 
 /*Table structure for table `university_rating` */
 
@@ -150,14 +155,37 @@ CREATE TABLE `university_rating` (
   `rating` int(11) NOT NULL,
   `date_occurred` date NOT NULL,
   PRIMARY KEY (`university_rating_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `university_rating` */
 
 insert  into `university_rating`(`university_rating_id`,`university_id`,`student_id`,`university_rating_description`,`rating`,`date_occurred`) values 
 (84,1,1,'Update ang duha',5,'2024-04-10'),
 (88,2,2,'Good Job',4,'2024-04-10'),
-(89,1,3,'Bati sya',1,'2024-04-14');
+(89,1,3,'Bati sya',1,'2024-04-14'),
+(91,1,4,'Lame School',1,'2024-04-15');
+
+/*Table structure for table `university_course_rating_view` */
+
+DROP TABLE IF EXISTS `university_course_rating_view`;
+
+/*!50001 DROP VIEW IF EXISTS `university_course_rating_view` */;
+/*!50001 DROP TABLE IF EXISTS `university_course_rating_view` */;
+
+/*!50001 CREATE TABLE  `university_course_rating_view`(
+ `university_course_rating_id` int(11) ,
+ `university_course_id` int(11) ,
+ `university_id` int(11) ,
+ `university_name` varchar(75) ,
+ `course_id` int(11) ,
+ `course_name` varchar(75) ,
+ `student_id` int(11) ,
+ `student_firstname` varchar(75) ,
+ `student_lastname` varchar(75) ,
+ `course_rating` int(11) ,
+ `course_rating_description` varchar(225) ,
+ `date_occurred` date 
+)*/;
 
 /*Table structure for table `university_course_view` */
 
@@ -176,6 +204,13 @@ DROP TABLE IF EXISTS `university_course_view`;
  `course_description` varchar(75) ,
  `status` varchar(75) 
 )*/;
+
+/*View structure for view university_course_rating_view */
+
+/*!50001 DROP TABLE IF EXISTS `university_course_rating_view` */;
+/*!50001 DROP VIEW IF EXISTS `university_course_rating_view` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `university_course_rating_view` AS select `university_course_rating`.`university_course_rating_id` AS `university_course_rating_id`,`university_course_view`.`university_course_id` AS `university_course_id`,`university_course_view`.`university_id` AS `university_id`,`university_course_view`.`university_name` AS `university_name`,`university_course_view`.`course_id` AS `course_id`,`university_course_view`.`course_name` AS `course_name`,`student`.`student_id` AS `student_id`,`student`.`student_firstname` AS `student_firstname`,`student`.`student_lastname` AS `student_lastname`,`university_course_rating`.`course_rating` AS `course_rating`,`university_course_rating`.`course_rating_description` AS `course_rating_description`,`university_course_rating`.`date_occurred` AS `date_occurred` from ((`university_course_rating` join `university_course_view` on(`university_course_rating`.`university_course_id` = `university_course_view`.`university_course_id`)) join `student` on(`university_course_rating`.`student_id` = `student`.`student_id`)) */;
 
 /*View structure for view university_course_view */
 
