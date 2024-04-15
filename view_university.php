@@ -38,6 +38,8 @@ if (isset($_GET['university_id'])) {
     // foreach($topFiveCourses as $course){
     //     echo $course['course_name'].'='. $course['rating'].'<br>';
     // }
+
+    $reviewCount = $init->displayUniversityCountView($university_id);
 } else {
     include_once '404.php';
     die();
@@ -70,26 +72,29 @@ if (isset($_GET['university_id'])) {
                 <div class="university_image">
                     <img src="imgs/<?= $row['university_image'] ?>" alt="" class="w-full h-64 object-cover rounded-lg">
                 </div>
-                <div class="university_info mt-3 w-full flex gap-2 justify-between bg-yellow-300">
-                    <div class=" bg-red-400 py-[0.5rem] px-[0] w-[75%]">
-                        <div class="header flex justify-between items-start">
-                            <div>
+                <div class="university_info mt-3 w-full flex gap-2 justify-between">
+                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[75%] rounded-lg shadow-xl">
+                        <div class="header flex justify-between items-start ">
+                            <div class="text-base">
                                 <h1><?= $row['university_name']; ?></h1>
                                 <h1>Address: <?= $row['university_address']; ?></h1>
                                 <h1><?= $row['university_type']; ?> School</h1>
                             </div>
-                            <h2><?= $avgRating['rating'] === null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating['rating']; ?></h2>
+                            <h2 class="text-base"><?= $avgRating['rating'] === null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating['rating']; ?></h2>
                         </div>
-                        <h1 class="mt-5">Description:</h1>
-                        <p class="leading-snug"><?= $row['university_description']; ?></p>
+                        <h1 class="mt-5 text-base">Description:</h1>
+                        <p class="leading-snug text-base"><?= $row['university_description']; ?></p>
                     </div>
-                    <div class="university_courses w-[20%] bg-green-400">
+                    <div class="university_courses w-[20%] bg-gray-100 rounded-lg px-2 shadow-xl">
                         <h1>University Courses</h1>
-                        <ul>
-                            <?php foreach ($universityCourseData as $course) : ?>
-                                <li><?= $course['course_name']; ?></li>
-                            <?php endforeach; ?>
-                        </ul>
+                        <div class="flex flex-col">
+                            <ul>
+                                <?php foreach ($universityCourseData as $course) : ?>
+                                    <li><?= $course['course_name']; ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <a href="" class="text-sm text-blue-700 underline">View More</a>
+                        </div>
                     </div>
                 </div>
                 <!-- <div class="rating_section mt-20">
@@ -106,25 +111,25 @@ if (isset($_GET['university_id'])) {
                         <?php endforeach; ?>
                     </div>
                 </div> -->
-                <section class="bg-yellow-500 dark:bg-gray-900 py-8 lg:py-16 antialiased">
-                    <div class="w-full px-4">
-                        <div class="flex justify-between items-center mb-6">
-                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (20)</h2>
+                <section class="bg-gray-100 mt-5 rounded-lg shadow-lg dark:bg-gray-900 py-0 lg:py-16 antialiased">
+                    <div class="w-full px-4 mt-[-3rem]">
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion(<?= $reviewCount['count']; ?>)</h2>
                         </div>
                         <form class="mb-6">
                             <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                 <label for="comment" class="sr-only">Your comment</label>
-                                <textarea id="comment" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a comment..." required></textarea>
+                                <textarea id="comment" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..." required></textarea>
                             </div>
                             <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                                 Post review
                             </button>
                         </form>
                         <?php foreach($universityRatingData as $ratings):?>
-                            <article class="p-6 text-base bg-white rounded-lg dark:bg-gray-900 mb-2">
+                            <article class="p-2 text-base bg-white rounded-lg dark:bg-gray-900 mb-2">
                                 <footer class="flex justify-between items-center mb-2">
                                     <div class="flex items-center">
-                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img class="mr-2 w-6 h-6 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="Michael Gough">Anonymous</p>
+                                        <p class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold"><img class="mr-2 w-6 h-6 rounded-full" src="imgs/profile.png" alt="Michael Gough">Anonymous</p>
                                         <p class="text-sm text-gray-600 dark:text-gray-400"><?= $ratings['date_occurred'] ? date("F j, Y",strtotime($ratings['date_occurred'])) : '';?></p>
                                     </div>
                                     <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1" class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600" type="button">
