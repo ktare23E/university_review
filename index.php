@@ -10,7 +10,7 @@
 
 
 <body>
-    <div class="parent_class p-[2rem] h-screen py-0 bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+    <div class="parent_class p-[2rem] py-0 bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%] mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
             <div class="header flex justify-between items-center mb-10"> <!-- Adding bottom margin for spacing -->
                 <div class="logo_container flex items-center gap-4"> <!-- Adjusted gap -->
@@ -80,13 +80,14 @@
                 },
                 success: function(response) {
                   //check dynamically if the main_content container is empty
-                    let mainContent = $('.main_content');
-                    let parent_class = $('.parent_class');
+        
 
                       // Update the container's HTML and fade it back in
                       $('.whole_container').html(response).animate({
                         opacity: 1
                         }, 200);
+                        checkChildElement(); // Call the function here
+
                 }
             });
         });
@@ -115,6 +116,7 @@
                         $('.whole_container').html(response).animate({
                         opacity: 1
                         }, 200);
+                        checkChildElement(); // Call the function here
                 }
             });
         });
@@ -140,6 +142,20 @@
     function changePage(pageNumber) {
         displayUniversity(pageNumber);
     }
+
+    //check whole_container child element
+    function checkChildElement(){
+        let mainContent = $('.main_content');
+        let parent_class = $('.parent_class');
+        if(mainContent.children().length <= 3 ){
+            parent_class.addClass('h-screen');
+        }else{
+            parent_class.removeClass('h-screen');
+        }
+    }
+
+
+
 </script>
 
 </html>
