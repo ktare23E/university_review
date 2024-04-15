@@ -513,14 +513,30 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function displayUniversityCourseRating($university_course_id){
+    protected function displayUniversityCourseRating($university_id){
         try{
             //retrieve all university course using university id
-            $retrieveSql = "SELECT * FROM university_course_rating WHERE university_course_id = ?";
-            $stmt = $this->connect()->prepare($retrieveSql);
-            $stmt->execute([$university_course_id]);
-            $stmt = $stmt->fetchAll();
-            return $stmt;
+            $query = "SELECT * FROM university_course WHERE university_id = ?";
+            $stmtQuery = $this->connect()->prepare($query);
+            $stmtQuery->execute([$university_id]);
+            $row = $stmtQuery->fetchAll();
+            $university_course_id = [];
+            foreach($row as $value){
+                $university_course_id[] = $value['university_course_id'];
+            }
+
+            $course_ratings = [];
+            foreach($university_course_id as $id){
+                //retrieve all university course rating using university university_course_id
+                $retrieveSql = "SELECT * FROM university_course_rating_view WHERE university_course_id = ?";
+                $stmt = $this->connect()->prepare($retrieveSql);
+                $stmt->execute([$id]);
+                $stmt = $stmt->fetchAll(); 
+                $course_ratings[] = $stmt;
+            }
+            return $course_ratings;
+            
+        
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }

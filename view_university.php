@@ -19,10 +19,18 @@ include_once 'includes/autoloader.php';
 
         //avg rating
         $avgRating = $init->displayRoundAvgRatingView($university_id);
-        if($avgRating['rating'] === null){
-            echo 'wla pay nag rate';
-        }else{
-            echo $avgRating['rating'];
+        // if($avgRating['rating'] === null){
+        //     echo 'wla pay nag rate';
+        // }else{
+        //     echo $avgRating['rating'];
+        // }
+
+        //retrieve all courses rating
+        $courseRating = $init->universityCourseRating($university_id);
+        foreach($courseRating as $rating){
+            foreach($rating as $rate){
+                echo $rate['course_name'].' = '.$rate['course_rating'].'<br>';
+            }
         }
     }else{
         include_once '404.php';
