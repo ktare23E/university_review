@@ -483,6 +483,17 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayUniversityColleges(){
+        try{
+            $sql = "SELECT * FROM university_colleges";
+            $stmt = $this->connect()->query($sql);
+            $stmt = $stmt->fetchAll();
+            return $stmt;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayCourse(){
         try{
             $sql = "SELECT * FROM course";
