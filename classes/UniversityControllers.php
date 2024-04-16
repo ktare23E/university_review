@@ -76,4 +76,5 @@ class UniversityControllers extends University{
     public function updateCollegeControllers($college_id,$college_name,$college_description){
         return $this->updateCollege($college_id,$college_name,$college_description);
     }
+    
 }

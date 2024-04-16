@@ -5,7 +5,7 @@
     $data = $init->retrieveUniversityView();
 
     $new = new UniversityControllers();
-   
+    
 
 ?>
 
