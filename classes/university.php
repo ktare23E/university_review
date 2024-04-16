@@ -494,6 +494,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayCertainCollegeEdit($university_college_id){
+        try{
+            $sql = "SELECT * FROM university_colleges WHERE university_college_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_college_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayCourse(){
         try{
             $sql = "SELECT * FROM course";
