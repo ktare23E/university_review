@@ -68,4 +68,8 @@ class UniversityControllers extends University{
     public function searchUniversityControllers($pageNumber,$searchItem){
         return $this->searchUniversity($pageNumber,$searchItem);
     }
+
+    public function insertCollegeControllers($college_name,$college_description){
+        return $this->insertCollege($college_name,$college_description);
+    }
 }

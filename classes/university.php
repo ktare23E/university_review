@@ -107,6 +107,20 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function insertCollege($college_name,$college_description){
+        try{
+            $sql = "INSERT INTO colleges(college_name,college_description) VALUES(?,?)";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$college_name,$college_description]);
+            if($stmt){
+                echo 'success';
+            }else{
+                echo 'error';
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
 
 
     protected function createUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
