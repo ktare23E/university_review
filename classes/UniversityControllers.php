@@ -72,4 +72,8 @@ class UniversityControllers extends University{
     public function insertCollegeControllers($college_name,$college_description){
         return $this->insertCollege($college_name,$college_description);
     }
+
+    public function updateCollegeControllers($college_id,$college_name,$college_description){
+        return $this->updateCollege($college_id,$college_name,$college_description);
+    }
 }
