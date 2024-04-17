@@ -73,7 +73,7 @@ if (isset($_GET['university_id'])) {
                     <img src="imgs/<?= $row['university_image'] ?>" alt="" class="w-full h-64 object-cover rounded-lg">
                 </div>
                 <div class="university_info mt-3 w-full flex gap-2 justify-between">
-                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[75%] rounded-lg shadow-xl">
+                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[60%] rounded-lg shadow-xl">
                         <div class="header flex justify-between items-start ">
                             <div class="text-base">
                                 <h1><?= $row['university_name']; ?></h1>
@@ -84,6 +84,10 @@ if (isset($_GET['university_id'])) {
                         </div>
                         <h1 class="mt-5 text-base">Description:</h1>
                         <p class="leading-snug text-base"><?= $row['university_description']; ?></p>
+                    </div>
+                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[20%] rounded-lg shadow-xl">
+                        <h1>University Colleges</h1>
+                        
                     </div>
                     <div class="university_courses w-[20%] bg-gray-100 rounded-lg px-2 shadow-xl">
                         <h1>University Courses</h1>
