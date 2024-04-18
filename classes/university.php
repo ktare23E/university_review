@@ -313,7 +313,7 @@ Class University extends ConnectDatabase{
                                         <h5 class=" text-md font-bold tracking-tight text-gray-900">'.$value['university_name'].'</h5>
                                         <h5 class="text-md font-bold tracking-tight text-gray-900">'.$value['university_type'].' School</h5>
                                     </div>
-                                    <p class="mb-3 font-normal text-gray-700 text-sm leading-snug">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                                    <p class="mb-3 font-normal text-gray-700 text-sm leading-snug">'.$value['university_description'].'</p>
                                     <a href="view_university.php?university_id='.$value['university_id'].'" class="inline-flex items-center px-2 py-1 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                         Read more
                                         <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -415,8 +415,8 @@ Class University extends ConnectDatabase{
                                     <a href="#">
                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900">'.$value['university_name'].'</h5>
                                     </a>
-                                    <p class="mb-3 font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-                                    <a href="view_university.php" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                                    <p class="mb-3 font-normal text-gray-700">'.$value['university_description'].'</p>
+                                    <a href="view_university.php?university_id='.$value['university_id'].'" class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                         Read more
                                         <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
