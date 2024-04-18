@@ -162,6 +162,11 @@ Class University extends ConnectDatabase{
                     VALUES(?,?)";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$course_name,$course_description]);
+            if($stmt){
+                echo 'success';
+            }else{
+                echo 'error';
+            }
         }catch(PDOException $e){
 
         }
@@ -654,6 +659,10 @@ Class University extends ConnectDatabase{
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }
+    }
+
+    protected function testNi(){
+        $test= "Hello World!";
     }
 
     protected function retrieveStudentDetails($student_id){

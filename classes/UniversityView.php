@@ -10,6 +10,10 @@ class UniversityView extends University{
         return $this->displayCourse();
     }
 
+    public function testPls(){
+        return $this->testNi();
+    }
+
     public function studentDataForAdmin(){
         return $this->displayStudents();
     }

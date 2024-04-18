@@ -1,3 +1,9 @@
+<?php
+include_once 'includes/autoloader.php';
+    session_start();
+    $session = new UniversityControllers();
+    $session->checkSession('isAdmin','admin');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
