@@ -157,7 +157,7 @@
     function checkChildElement(){
         let mainContent = $('.main_content');
         let parent_class = $('.parent_class');
-        if(mainContent.children().length <= 3 ){
+        if(mainContent.children().length <= 6 ){
             parent_class.addClass('h-screen');
         }else{
             parent_class.removeClass('h-screen');
