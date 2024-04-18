@@ -2,6 +2,7 @@
 include_once 'header.php';
 include_once '../includes/autoloader.php';
 include_once 'modals/createCourseModal.php';
+include_once 'modals/editCourseModal.php';
 
 $init = new UniversityControllers();
 
@@ -34,7 +35,7 @@ $courses = $views->courseData();
                                 <td><?= $course['course_name']; ?></td>
                                 <td><?= $course['course_description']; ?></td>
                                 <td>
-                                    <button class="edit px-1 py-1 bg-green- rounded-md text-sm">Edit</button>
+                                    <button class="edit px-1 py-1 bg-green-300 rounded-md" onclick='editModal(<?= $course["course_id"]?>,<?= json_encode($course["course_name"]) ?>,<?= json_encode($course["course_description"]) ?>,"edit_course_modal")'>Edit</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -48,6 +49,15 @@ $courses = $views->courseData();
 <script> 
     let table = new DataTable('#myTable');
     closeModal('add_course');
+    closeModal('edit_course_modal');
+
+    function editModal(course_id,course_name,course_description,modal){
+        $('#edit_course_id').val(course_id);
+        $('#edit_course_name').val(course_name);
+        $('#edit_course_description').val(course_description);
+
+        $('#' + modal).toggleClass('hidden');
+    }
 
     $('.add_course_btn').click(function(){
         let course_name = $('#course_name').val();
@@ -56,7 +66,7 @@ $courses = $views->courseData();
 
         $.ajax({
             url: '../includes/createCourse.php',
-            method: 'POST',
+            type: 'POST',
             data: {
                 course_name: course_name,
                 course_description: course_description,
@@ -69,6 +79,33 @@ $courses = $views->courseData();
                     location.reload();
                 }else{
                     alert('Failed to add course');
+                }
+            }
+        })
+    })
+
+    $('.update_course_btn').click(function(){
+        let edit_course_id =  $('#edit_course_id').val();
+        let edit_course_name = $('#edit_course_name').val();
+        let edit_course_description = $('#edit_course_description').val();
+        let update = $(this).attr('name');
+
+        $.ajax({
+            url: '../includes/updateCourse.php',
+            type: 'POST',
+            data : {
+                edit_course_id: edit_course_id,
+                edit_course_name: edit_course_name,
+                edit_course_description: edit_course_description,
+                update: update
+            },
+            success: function(data){
+                console.log(data);
+                if(data == 'success'){
+                    alert('Course updated successfully');
+                    location.reload();
+                }else{
+                    alert('Failed to update course');
                 }
             }
         })
