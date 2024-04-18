@@ -96,7 +96,7 @@ if (isset($_GET['university_id'])) {
                                     <li class="text-sm"><?= $college['college_name']; ?></li>
                                 <?php endforeach; ?>
                             </ul>
-                            <a href="" class="text-sm text-blue-700 underline">View More Details</a>
+                            <a href="view_university_colleges.php?university_id=<?= $university_id;?>" class="text-sm text-blue-700 underline">View More Details</a>
                         </div>
                     </div>
                     <div class="university_courses w-[20%] bg-gray-100 rounded-lg px-2 py-2 shadow-xl">
