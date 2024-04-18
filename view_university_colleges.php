@@ -8,7 +8,6 @@ if (isset($_GET['university_id'])) {
     $universityData = $init->displayCertainUniversityView($university_id);
 
     $colleges = $init->displayCertainUniversityCollegesView($university_id);
-
 } else {
     include_once '404.php';
     die();
@@ -18,7 +17,7 @@ if (isset($_GET['university_id'])) {
 
 
 <body>
-    <div class="parent_class h-screen w-screen bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+    <div class="parent_class p-[2rem] bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%]  mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
             <div class="header flex justify-between items-center mb-3"> <!-- Adding bottom margin for spacing -->
                 <div class="logo_container flex items-center gap-4"> <!-- Adjusted gap -->
@@ -37,23 +36,61 @@ if (isset($_GET['university_id'])) {
                 <span>Go back</span>
             </button>
 
-            <div class="colleges_information">
-                <h1 class="text-2xl font-bold text-center mb-5"><?= $universityData['university_name'];?> Colleges</h1>
-                <div class="colleges_container grid grid-cols-1 gap-4">
-                    <?php
-                    if ($colleges) {
-                        foreach ($colleges as $college) {
-                    ?>
+            <div class="colleges_information w-full">
+                <h1 class="text-2xl font-bold text-center mb-5"><?= $universityData['university_name']; ?> Colleges</h1>
+                <div class="colleges_container grid grid-cols-2 gap-4 w-full">
+                    <!-- <?php
+                            if ($colleges) {
+                                foreach ($colleges as $college) {
+                            ?>
                             <div class="college_card bg-gray-100 p-4 rounded-lg shadow-lg">
                                 <h1 class="text-xl font-bold text-center mb-2"><?php echo $college['college_name'] ?></h1>
                                 <p class="text-center"><?php echo $college['college_description'] ?></p>
                             </div>
                     <?php
-                        }
-                    } else {
-                        echo '<p class="text-center">No colleges found</p>';
-                    }
-                    ?>
+                                }
+                            } else {
+                                echo '<p class="text-center">No colleges found</p>';
+                            }
+                    ?> -->
+
+                    <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="imgs/sict.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                            <a href="" class="text-blue-700 underline">View Courses</a>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="imgs/sict.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="imgs/sict.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="imgs/sict.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="imgs/sict.jpg" alt="">
+                        <div class="flex flex-col justify-between p-4 leading-normal">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+                            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
