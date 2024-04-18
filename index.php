@@ -12,8 +12,8 @@
 
 
 
-<body>
-    <div class="parent_class p-[2rem] py-0 bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+<body class="bg-green-50">
+    <div class="parent_class p-[2rem] pt-0 pb-5 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%] mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
             <div class="header flex justify-between items-center mb-10"> <!-- Adding bottom margin for spacing -->
                 <div class="logo_container flex items-center gap-4"> <!-- Adjusted gap -->
@@ -21,7 +21,7 @@
                     <h1 class="font-bold text-xl">RateMeSchool</h1> <!-- Adjusted font size -->
                 </div>
                 <div class="py-6">
-                    <a href="login.php" class="-mx-3 bg-black text-white block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-white-50">Log in</a>
+                    <a href="login.php" class="-mx-3 bg-black text-white block rounded-lg px-3 py-1 text-base font-semibold leading-7 hover:bg-white-50">Log in</a>
                 </div>
             </div>
             <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
@@ -90,7 +90,7 @@
                       $('.whole_container').html(response).animate({
                         opacity: 1
                         }, 200);
-                        checkChildElement(); // Call the function here
+                        // checkChildElement(); // Call the function here
 
                 }
             });
@@ -120,7 +120,7 @@
                         $('.whole_container').html(response).animate({
                         opacity: 1
                         }, 200);
-                        checkChildElement(); // Call the function here
+                        // checkChildElement(); // Call the function here
                 }
             });
         });
@@ -135,7 +135,7 @@
         if (pageNumber > 1) {
             displayUniversity(pageNumber - 1);
         }
-        checkChildElement(); // Call the function here
+        // checkChildElement(); // Call the function here
 
     }
 
@@ -143,26 +143,26 @@
         if (pageNumber < totalPages) {
             displayUniversity(pageNumber + 1);
         }
-        checkChildElement(); // Call the function here
+        // checkChildElement(); // Call the function here
 
     }
 
     function changePage(pageNumber) {
         displayUniversity(pageNumber);
-        checkChildElement(); // Call the function here
+        // checkChildElement(); // Call the function here
 
     }
 
     //check whole_container child element
-    function checkChildElement(){
-        let mainContent = $('.main_content');
-        let parent_class = $('.parent_class');
-        if(mainContent.children().length <= 6 ){
-            parent_class.addClass('h-screen');
-        }else{
-            parent_class.removeClass('h-screen');
-        }
-    }
+    // function checkChildElement(){
+    //     let mainContent = $('.main_content');
+    //     let parent_class = $('.parent_class');
+    //     if(mainContent.children().length <= 3 ){
+    //         parent_class.addClass('h-screen');
+    //     }else{
+    //         parent_class.removeClass('h-screen');
+    //     }
+    // }
 
 
 
