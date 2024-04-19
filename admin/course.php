@@ -35,7 +35,7 @@ $courses = $views->courseData();
                                 <td><?= $course['course_name']; ?></td>
                                 <td><?= $course['course_description']; ?></td>
                                 <td>
-                                    <button class="edit px-1 py-1 bg-green-300 rounded-md" onclick='editModal(<?= $course["course_id"]?>,<?= json_encode($course["course_name"]) ?>,<?= json_encode($course["course_description"]) ?>,"edit_course_modal")'>Edit</button>
+                                    <button class="edit px-2 py-1 bg-black text-white rounded-md text-[12px]" onclick='editModal(<?= $course["course_id"]?>,<?= json_encode($course["course_name"]) ?>,<?= json_encode($course["course_description"]) ?>,"edit_course_modal")'>Edit</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

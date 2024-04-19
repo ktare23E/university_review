@@ -35,7 +35,7 @@ $colleges = $views->displayCollegeView();
                                 <td><?= $college['college_name']; ?></td>
                                 <td><?= $college['college_description']; ?></td>
                                 <td>
-                                    <button class="edit px-1 py-1 bg-green-300 rounded-md" onclick='editModal(<?= $college["college_id"]?>,<?= json_encode($college["college_name"]) ?>,<?= json_encode($college["college_description"]) ?>,"edit_college_modal")'>Edit</button>
+                                    <button class="edit px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='editModal(<?= $college["college_id"]?>,<?= json_encode($college["college_name"]) ?>,<?= json_encode($college["college_description"]) ?>,"edit_college_modal")'>Edit</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -91,7 +91,7 @@ $colleges = $views->displayCollegeView();
         let update = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/updatecollege.php',
+            url: '../includes/updateCollege.php',
             type: 'POST',
             data : {
                 edit_college_id: edit_college_id,

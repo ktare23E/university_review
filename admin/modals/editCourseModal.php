@@ -33,7 +33,7 @@
                 </div>
                 
                 <button class="update_course_btn bg-blue-800 p-2 rounded-md text-white" type="button" name="update">
-                    Create Course
+                    Edit Course
                 </button>
             </form>
         </div>
