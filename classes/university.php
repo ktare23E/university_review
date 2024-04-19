@@ -137,7 +137,7 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function createUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
+    protected function createUniversity($university_name,$university_address,$university_email,$university_status,$university_description,$university_type){
         try{
             //check if university exist
             $query = "SELECT * FROM university WHERE university_email = ?";
@@ -146,10 +146,14 @@ Class University extends ConnectDatabase{
             if($result->rowCount() > 0){
                 return 'already existed';
             }else{
-                $sql = "INSERT INTO university (university_name,university_address,university_email,university_status,university_description) VALUES(?,?,?,?,?)";
+                $sql = "INSERT INTO university (university_name,university_address,university_email,university_status,university_description,university_type) VALUES(?,?,?,?,?,?)";
                 $stmt = $this->connect()->prepare($sql);
-                $stmt->execute([$university_name,$university_address,$university_email,$university_status,$university_description]);
-                return 'success';
+                $stmt->execute([$university_name,$university_address,$university_email,$university_status,$university_description,$university_type]);
+                if($stmt){
+                    echo 'success';
+                }else{
+                    echo 'failed';
+                }
             }
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();

@@ -20,7 +20,7 @@
             <input type="hidden" class="form-control form-control-md" name="region_text" id="region-text" required>
         </div>
         <div class="col-sm-6 mb-3">
-            <label class="form-label">Province *</label>
+            <label class="form-label">Province <span class="text-red-500">*</span></label>
             <select name="province" class="form-control form-control-md" id="province"></select>
             <input type="hidden" class="form-control form-control-md" name="province_text" id="province-text" required>
         </div>

@@ -9,8 +9,8 @@ class UniversityControllers extends University{
         return $this->studentReview($university_id,$student_id,$university_rating_description,$rating);
     }
 
-    public function insertUniversity($university_name,$university_address,$university_email,$university_status,$university_description){
-        return $this->createUniversity($university_name,$university_address,$university_email,$university_status,$university_description);
+    public function insertUniversity($university_name,$university_address,$university_email,$university_status,$university_description,$university_type){
+        return $this->createUniversity($university_name,$university_address,$university_email,$university_status,$university_description,$university_type);
     }
 
     public function insertCourse($course_name,$course_description){
