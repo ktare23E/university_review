@@ -1,8 +1,8 @@
 <?php
 include_once 'header.php';
 include_once '../includes/autoloader.php';
-include_once 'modals/createCollegeModal.php.php';
-include_once 'modals/editCourseModal.php';
+include_once 'modals/createCollegeModal.php';
+include_once 'modals/editCollegeModal.php';
 
 $init = new UniversityControllers();
 
@@ -18,7 +18,7 @@ $colleges = $views->displayCollegeView();
         <div class="main_information w-full mt-5">
             <h1 class="text-xl font-bold">Colleges</h1>
             <div class="w-full flex justify-end">
-                <button class="add_course py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_college_modal" data-modal-toggle="add_college_modal">Add College</button>
+                <button class="add_college py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_college_modal" data-modal-toggle="add_college_modal">Add College</button>
             </div>
             <div class="table_container mt-3 bg-white p-[2rem] rounded-md shadow-lg">
                 <table id="myTable" class="display">
@@ -35,7 +35,7 @@ $colleges = $views->displayCollegeView();
                                 <td><?= $college['college_name']; ?></td>
                                 <td><?= $college['college_description']; ?></td>
                                 <td>
-                                    <button class="edit px-1 py-1 bg-green-300 rounded-md" onclick='editModal(<?= $college["college_id"]?>,<?= json_encode($college["college_name"]) ?>,<?= json_encode($college["college_description"]) ?>,"edit_course_modal")'>Edit</button>
+                                    <button class="edit px-1 py-1 bg-green-300 rounded-md" onclick='editModal(<?= $college["college_id"]?>,<?= json_encode($college["college_name"]) ?>,<?= json_encode($college["college_description"]) ?>,"edit_college_modal")'>Edit</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -51,61 +51,61 @@ $colleges = $views->displayCollegeView();
     closeModal('add_college_modal');
     closeModal('edit_college_modal');
 
-    function editModal(course_id,course_name,course_description,modal){
-        $('#edit_course_id').val(course_id);
-        $('#edit_course_name').val(course_name);
-        $('#edit_course_description').val(course_description);
+    function editModal(college_id,college_name,college_description,modal){
+        $('#edit_college_id').val(college_id);
+        $('#edit_college_name').val(college_name);
+        $('#edit_college_description').val(college_description);
 
         $('#' + modal).toggleClass('hidden');
     }
 
-    $('.add_course_btn').click(function(){
-        let course_name = $('#course_name').val();
-        let course_description = $('#course_description').val();
+    $('.add_college_btn').click(function(){
+        let college_name = $('#college_name').val();
+        let college_description = $('#college_description').val();
         let submit = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/createCourse.php',
+            url: '../includes/createCollege.php',
             type: 'POST',
             data: {
-                course_name: course_name,
-                course_description: course_description,
+                college_name: college_name,
+                college_description: college_description,
                 submit: submit
             },
             success: function(data){
                 console.log(data);
                 if(data == 'success'){
-                    alert('Course added successfully');
+                    alert('college added successfully');
                     location.reload();
                 }else{
-                    alert('Failed to add course');
+                    alert('Failed to add college');
                 }
             }
         })
     })
 
-    $('.update_course_btn').click(function(){
-        let edit_course_id =  $('#edit_course_id').val();
-        let edit_course_name = $('#edit_course_name').val();
-        let edit_course_description = $('#edit_course_description').val();
+    $('.update_college_btn').click(function(){
+        let edit_college_id =  $('#edit_college_id').val();
+        let edit_college_name = $('#edit_college_name').val();
+        let edit_college_description = $('#edit_college_description').val();
         let update = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/updateCourse.php',
+            url: '../includes/updatecollege.php',
             type: 'POST',
             data : {
-                edit_course_id: edit_course_id,
-                edit_course_name: edit_course_name,
-                edit_course_description: edit_course_description,
+                edit_college_id: edit_college_id,
+                edit_college_name: edit_college_name,
+                edit_college_description: edit_college_description,
                 update: update
             },
             success: function(data){
                 console.log(data);
                 if(data == 'success'){
-                    alert('Course updated successfully');
+                    alert('college updated successfully');
                     location.reload();
                 }else{
-                    alert('Failed to update course');
+                    alert('Failed to update college');
                 }
             }
         })
