@@ -2,7 +2,7 @@
 include_once 'header.php';
 include_once '../includes/autoloader.php';
 include_once 'modals/createUniversityModal.php';
-// include_once 'modals/editUniversityModal.php';
+include_once 'modals/editUniversityModal.php';
 
 $init = new UniversityControllers();
 
@@ -43,7 +43,10 @@ $universities = $views->retrieveUniversityView();
                                 <td><?= $university['university_status']; ?></td>
                                 <td><?= $university['university_type']; ?></td>
                                 <td>
-                                    <button class="edit px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='editModal(<?= $university["university_id"]?>,<?= json_encode($university["university_name"]) ?>,<?= json_encode($university["university_description"]) ?>,"edit_university_modal")'>Edit</button>
+                                    <button class="edit px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='editModal(<?= $university["university_id"]?>,<?= json_encode($university["university_name"]) ?>,<?= json_encode($university["university_description"]) ?>,<?= json_encode($university["university_status"]) ?>,<?= json_encode($university["region"]); ?>,<?= json_encode($university["province"])?>,<?= json_encode($university["city"]) ?>,<?= json_encode($university["barangay"])?>,<?= json_encode($university["university_email"])?>,<?= json_encode($university["university_type"])?>,"edit_university_modal")'>edit</button>
+                                    <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
+                                        <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -60,12 +63,27 @@ $universities = $views->retrieveUniversityView();
 <script> 
     let table = new DataTable('#myTable');
     closeModal('add_university_modal');
-    // closeModal('edit_university_modal');
+    closeModal('edit_university_modal');
 
-    function editModal(university_id,university_name,university_description,modal){
+    function editModal(university_id,university_name,university_description,university_status,region,province,city,barangay,university_email,university_type,modal){
         $('#edit_university_id').val(university_id);
         $('#edit_university_name').val(university_name);
         $('#edit_university_description').val(university_description);
+
+        $('#edit_university_status').val(university_status);
+        $('#edit_region').append(`<option value="${region}" selected>${region}</option>`);
+        $('#edit_region').val(region);
+        // $('#edit_province').append(`<option value="${province}" selected>${province}</option>`);
+        // $('#edit_province-text').val(province);
+        // $('#edit_city').append(`<option value="${city}" selected>${city}</option>`);
+        // $('#edit_city-text').val(city);
+        // $('#edit_barangay').append(`<option value="${barangay}" selected>${barangay}</option>`);
+        // $('#edit_barangay-text').val(barangay);
+
+        $('#edit_university_email').val(university_email);
+        $('#edit_university_type').val(university_type);
+
+        console.log(region);
 
         $('#' + modal).toggleClass('hidden');
     }

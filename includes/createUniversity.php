@@ -11,8 +11,6 @@
         $university_email  = $_POST['university_email'];
         $university_type  = $_POST['university_type'];
 
-        $address = $province.' '.$city.' '.$barangay;
-
         $init = new UniversityControllers();
-        echo $init->insertUniversity($university_name,$address,$university_email,$university_status,$university_description,$university_type);
+        echo $init->insertUniversity($university_name,$region,$province,$city,$barangay,$university_email,$university_status,$university_description,$university_type);
     }

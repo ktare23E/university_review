@@ -33,6 +33,7 @@
  * @license https://opensource.org/licenses/MIT MIT License
  */
 
+//first one
 var my_handlers = {
     // fill province
     fill_provinces: function() {
@@ -192,3 +193,168 @@ $(function() {
     });
 
 });
+
+//for display on editing
+
+
+//second one
+
+// var my_handlers = {
+//     // fill province
+//     fill_provinces: function() {
+//         //selected region
+//         var region_code = $(this).val();
+//         console.log(region_code);
+//         // set selected text to input
+//         var region_text = $(this).find("option:selected").text();
+//         let region_input = $('#edit_region-text');
+//         region_input.val(region_text);
+//         //clear province & city & barangay input
+//         $('#edit_province-text').val('');
+//         $('#edit_city-text').val('');
+//         $('#edit_barangay-text').val('');
+
+//         //province
+//         let dropdown = $('#edit_province');
+//         dropdown.empty();
+//         dropdown.append('<option selected="true" disabled>Choose State/Province</option>');
+//         dropdown.prop('selectedIndex', 0);
+
+//         //city
+//         let city = $('#edit_city');
+//         city.empty();
+//         city.append('<option selected="true" disabled></option>');
+//         city.prop('selectedIndex', 0);
+
+//         //barangay
+//         let barangay = $('#edit_barangay');
+//         barangay.empty();
+//         barangay.append('<option selected="true" disabled></option>');
+//         barangay.prop('selectedIndex', 0);
+
+//         // filter & fill
+//         var url = 'ph-json/province.json';
+//         $.getJSON(url, function(data) {
+//             var result = data.filter(function(value) {
+//                 return value.region_code == region_code;
+//             });
+
+//             result.sort(function(a, b) {
+//                 return a.province_name.localeCompare(b.province_name);
+//             });
+
+//             $.each(result, function(key, entry) {
+//                 dropdown.append($('<option></option>').attr('value', entry.province_code).text(entry.province_name));
+//             })
+
+//         });
+//     },
+//     // fill city
+//     fill_cities: function() {
+//         //selected province
+//         var province_code = $(this).val();
+
+//         // set selected text to input
+//         var province_text = $(this).find("option:selected").text();
+//         let province_input = $('#edit_province-text');
+//         province_input.val(province_text);
+//         //clear city & barangay input
+//         $('#edit_city-text').val('');
+//         $('#edit_barangay-text').val('');
+
+//         //city
+//         let dropdown = $('#edit_city');
+//         dropdown.empty();
+//         dropdown.append('<option selected="true" disabled>Choose city/municipality</option>');
+//         dropdown.prop('selectedIndex', 0);
+
+//         //barangay
+//         let barangay = $('#edit_barangay');
+//         barangay.empty();
+//         barangay.append('<option selected="true" disabled></option>');
+//         barangay.prop('selectedIndex', 0);
+
+//         // filter & fill
+//         var url = 'ph-json/city.json';
+//         $.getJSON(url, function(data) {
+//             var result = data.filter(function(value) {
+//                 return value.province_code == province_code;
+//             });
+
+//             result.sort(function(a, b) {
+//                 return a.city_name.localeCompare(b.city_name);
+//             });
+
+//             $.each(result, function(key, entry) {
+//                 dropdown.append($('<option></option>').attr('value', entry.city_code).text(entry.city_name));
+//             })
+
+//         });
+//     },
+//     // fill barangay
+//     fill_barangays: function() {
+//         // selected barangay
+//         var city_code = $(this).val();
+
+//         // set selected text to input
+//         var city_text = $(this).find("option:selected").text();
+//         let city_input = $('#edit_city-text');
+//         city_input.val(city_text);
+//         //clear barangay input
+//         $('#edit_barangay-text').val('');
+
+//         // barangay
+//         let dropdown = $('#edit_barangay');
+//         dropdown.empty();
+//         dropdown.append('<option selected="true" disabled>Choose barangay</option>');
+//         dropdown.prop('selectedIndex', 0);
+
+//         // filter & Fill
+//         var url = 'ph-json/barangay.json';
+//         $.getJSON(url, function(data) {
+//             var result = data.filter(function(value) {
+//                 return value.city_code == city_code;
+//             });
+
+//             result.sort(function(a, b) {
+//                 return a.brgy_name.localeCompare(b.brgy_name);
+//             });
+
+//             $.each(result, function(key, entry) {
+//                 dropdown.append($('<option></option>').attr('value', entry.brgy_code).text(entry.brgy_name));
+//             })
+
+//         });
+//     },
+
+//     onchange_barangay: function() {
+//         // set selected text to input
+//         var barangay_text = $(this).find("option:selected").text();
+//         let barangay_input = $('#edit_barangay-text');
+//         barangay_input.val(barangay_text);
+//     },
+
+// };
+
+
+// $(function() {
+//     // events
+//     $('#edit_region').on('change', my_handlers.fill_provinces);
+//     $('#edit_province').on('change', my_handlers.fill_cities);
+//     $('#edit_city').on('change', my_handlers.fill_barangays);
+//     $('#edit_barangay').on('change', my_handlers.onchange_barangay);
+
+//     // load region
+//     let dropdown = $('#edit_region');
+//     dropdown.empty();
+//     dropdown.append('<option selected="true" disabled>Choose Region</option>');
+//     dropdown.prop('selectedIndex', 0);
+//     const url = 'ph-json/region.json';
+//     // Populate dropdown with list of regions
+//     $.getJSON(url, function(data) {
+//         $.each(data, function(key, entry) {
+//             dropdown.append($('<option></option>').attr('value', entry.region_code).text(entry.region_name));
+//         })
+//     });
+
+// });
