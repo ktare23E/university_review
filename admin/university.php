@@ -60,22 +60,11 @@ $universities = $views->retrieveUniversityView();
 <script src="../assets/index.js"></script>
 
 <script type="module">
-    import {
-        region
-    } from './ph-json/region_copy.js';
-    import {
-        province
-    } from './ph-json/province_copy.js';
-    import {
-        city
-    } from './ph-json/city_copy.js';
-    import {
-        barangay
-    } from './ph-json/barangay_copy.js';
-    import {
-        myfunct,
-        hello
-    } from './experiment.js';
+    import {region} from './ph-json/region_copy.js';
+    import {province} from './ph-json/province_copy.js';
+    import {city} from './ph-json/city_copy.js';
+    import {barangay} from './ph-json/barangay_copy.js';
+
 
     $('.edit_university').click(function() {
         let university_id = $(this).attr('university_id');
@@ -205,33 +194,26 @@ $universities = $views->retrieveUniversityView();
 
 
     $('.add_university_btn').click(function() {
-        let university_name = $('#university_name').val();
-        let university_description = $('#university_description').val();
-        let university_status = $('#university_status').val();
-        let region = $('#region-text').val();
-        let province = $('#province-text').val();
-        let city = $('#city-text').val();
-        let barangay = $('#barangay-text').val();
-        let university_email = $('#university_email').val();
-        let university_type = $('#university_type').val();
+        let formData = new FormData();
+        let fileInput = $('#image')[0].files[0];
+        formData.append('image', fileInput);
+        formData.append('university_name', $('#university_name').val());
+        formData.append('university_description', $('#university_description').val());
+        formData.append('region', $('#region-text').val());
+        formData.append('province', $('#province-text').val());
+        formData.append('city', $('#city-text').val());
+        formData.append('barangay', $('#barangay-text').val());
+        formData.append('university_email', $('#university_email').val());
+        formData.append('university_type', $('#university_type').val());
+        formData.append('university_status', $('#university_status').val());
 
-        let submit = $(this).attr('name');
 
         $.ajax({
             url: '../includes/createUniversity.php',
             type: 'POST',
-            data: {
-                university_name: university_name,
-                university_status: university_status,
-                university_description: university_description,
-                region: region,
-                province: province,
-                city: city,
-                barangay: barangay,
-                university_email: university_email,
-                university_type: university_type,
-                submit: submit
-            },
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function(data) {
                 console.log(data);
                 if (data == 'success') {

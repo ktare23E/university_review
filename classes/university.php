@@ -137,23 +137,23 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function createUniversity($university_name,$region,$province,$city,$barangay,$university_email,$university_status,$university_description,$university_type){
+    protected function createUniversity($university_name,$region,$province,$city,$barangay,$university_email,$university_status,$university_description,$university_type,$filename){
         try{
-            //check if university exist
-            $query = "SELECT * FROM university WHERE university_email = ?";
-            $result  = $this->connect()->prepare($query);
-            $result->execute([$university_email]);
-            if($result->rowCount() > 0){
-                return 'already existed';
-            }else{
-                $sql = "INSERT INTO university (university_name,region,province,city,barangay,university_email,university_status,university_description,university_type) VALUES(?,?,?,?,?,?,?,?,?)";
+            $upload_dir = '../imgs/';
+            $filename = $_FILES["image"]["name"];
+            //change image file name dynamically
+            $filename = time().'_'.$filename;
+            $destination = $upload_dir . $filename;
+            if(move_uploaded_file($_FILES["image"]["tmp_name"],$destination)){
+                $sql = "INSERT INTO university(university_name,region,province,city,barangay,university_email,university_status,university_description,university_type,university_image) VALUES (?,?,?,?,?,?,?,?,?,?)";
                 $stmt = $this->connect()->prepare($sql);
-                $stmt->execute([$university_name,$region,$province,$city,$barangay,$university_email,$university_status,$university_description,$university_type]);
+                $stmt->execute([$university_name,$region,$province,$city,$barangay,$university_email,$university_status,$university_description,$university_type,$filename]);
                 if($stmt){
-                    echo 'success';
+                    echo "success";
                 }else{
-                    echo 'failed';
+                    echo "Error";
                 }
+    
             }
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();

@@ -1,4 +1,5 @@
 <!-- Main modal -->
+
 <div id="add_university_modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed inset-0 z-50 w-full h-full bg-black bg-opacity-30 backdrop-blur-sm">
     <div class="flex justify-center items-center min-h-full">
         <!-- Modal content -->
@@ -16,7 +17,7 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="p-4 md:p-5" method="POST">
+            <form class="p-4 md:p-5" method="POST" enctype="multipart/form-data">
                 <div class="grid gap-4 mb-4 grid-cols-2">
                     <div>
                         <label for="ProgramName" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">University Name</label>
@@ -74,6 +75,14 @@
                             <option value="Private">Private</option>
                         </select>
                     </div>
+                </div>
+                <div class="grid gap-4 mb-4 grid-cols-1">
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload University Logo</label>
+                        <input class="block w-full  text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="image" type="file" name="image">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,JPG,JPEG only</p>
+                    </div>
+                    
                 </div>
                 <button class="add_university_btn bg-blue-800 p-2 rounded-md text-white" type="button" name="submit">
                     Create University
