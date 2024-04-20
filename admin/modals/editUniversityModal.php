@@ -76,6 +76,14 @@
                         </select>
                     </div>
                 </div>
+                <div class="grid gap-4 mb-4 grid-cols-1">
+                    <div>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload University Logo</label>
+                        <input class="block w-full  text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50  dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="edit_image" type="file" name="edit_image">
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,JPG,JPEG only</p>
+                    </div>
+                    
+                </div>
                 <button class="update_university_btn bg-blue-800 p-2 rounded-md text-white" type="button" name="update">
                     Update University
                 </button>

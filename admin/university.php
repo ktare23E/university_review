@@ -84,6 +84,7 @@ $universities = $views->retrieveUniversityView();
                 $('#edit_university_status').val(university.university_status);
                 $('#edit_university_email').val(university.university_email);
                 $('#edit_university_type').val(university.university_type);
+          
 
                 //append all region to select and select the region of the university
                 region.forEach(r => {
@@ -160,28 +161,11 @@ $universities = $views->retrieveUniversityView();
                     });
                 });
 
-                //address
-                // $('#edit_region').val(university.region);
-                // $('#edit_province-text').val(university.province);
-                // $('#edit_city-text').val(university.city);
-                // $('#edit_barangay-text').val(university.barangay);
                 $('#' + modal).toggleClass('hidden');
             }
         });
 
 
-
-        // $('#edit_region').append(`<option value="${region}" selected>${region}</option>`);
-
-        // $('#edit_province').append(`<option value="${province}" selected>${province}</option>`);
-
-        // $('#edit_city').append(`<option value="${city}" selected>${city}</option>`);
-
-        // $('#edit_barangay').append(`<option value="${barangay}" selected>${barangay}</option>`);
-        // // $('#edit_barangay-text').val(barangay);
-
-
-        // console.log(region);
 
     })
 </script>
@@ -190,7 +174,6 @@ $universities = $views->retrieveUniversityView();
     let table = new DataTable('#myTable');
     closeModal('add_university_modal');
     closeModal('edit_university_modal');
-
 
 
     $('.add_university_btn').click(function() {
@@ -230,15 +213,30 @@ $universities = $views->retrieveUniversityView();
         let edit_university_id = $('#edit_university_id').val();
         let edit_university_name = $('#edit_university_name').val();
         let edit_university_description = $('#edit_university_description').val();
+        let edit_university_status = $('#edit_university_status').val();
+        let edit_university_email = $('#edit_university_email').val();
+        let edit_university_type = $('#edit_university_type').val();
+        let edit_region = $('#edit_region').val();
+        let edit_province = $('#edit_province').val();
+        let edit_city = $('#edit_city').val();
+        let edit_barangay = $('#edit_barangay').val();
+
         let update = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/updateuniversity.php',
+            url: '../includes/updateUniversity.php',
             type: 'POST',
             data: {
                 edit_university_id: edit_university_id,
                 edit_university_name: edit_university_name,
                 edit_university_description: edit_university_description,
+                edit_university_status: edit_university_status,
+                edit_university_email: edit_university_email,
+                edit_university_type: edit_university_type,
+                edit_region: edit_region,
+                edit_province: edit_province,
+                edit_city: edit_city,
+                edit_barangay: edit_barangay,
                 update: update
             },
             success: function(data) {
