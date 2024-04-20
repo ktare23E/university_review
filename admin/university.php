@@ -43,10 +43,11 @@ $universities = $views->retrieveUniversityView();
                                 <td><?= $university['university_status']; ?></td>
                                 <td><?= $university['university_type']; ?></td>
                                 <td>
-                                    <button class="edit px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='editModal(<?= $university["university_id"]?>,<?= json_encode($university["university_name"]) ?>,<?= json_encode($university["university_description"]) ?>,<?= json_encode($university["university_status"]) ?>,<?= json_encode($university["region"]); ?>,<?= json_encode($university["province"])?>,<?= json_encode($university["city"]) ?>,<?= json_encode($university["barangay"])?>,<?= json_encode($university["university_email"])?>,<?= json_encode($university["university_type"])?>,"edit_university_modal")'>edit</button>
+                                    <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md"  university_id="<?= $university['university_id']?>">edit</button>
                                     <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
                                         <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
                                     </button>
+                                    <button class="clickMe">test</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -59,34 +60,98 @@ $universities = $views->retrieveUniversityView();
 
 <script src="../assets/index.js"></script>
 
+<script type="module">
+    import {region} from './ph-json/region_copy.js';
+    import {province} from './ph-json/province_copy.js';
+    import {city} from './ph-json/city_copy.js';
+    import {barangay} from './ph-json/barangay_copy.js';
+    import {myfunct,hello} from './experiment.js';
+
+    $('.edit_university').click(function(){
+  
+        let university_id = $(this).attr('university_id');
+        let modal = 'edit_university_modal';
+
+        $.ajax({
+            url : '../includes/fetchCertainUniversity.php',
+            type : 'POST',
+            data : {
+                university_id : university_id
+            },
+            success: function(data){
+                let university = JSON.parse(data);
+                $('#edit_university_id').val(university.university_id);
+                $('#edit_university_name').val(university.university_name);
+                $('#edit_university_description').val(university.university_description);
+                $('#edit_university_status').val(university.university_status);
+                $('#edit_university_email').val(university.university_email);
+                $('#edit_university_type').val(university.university_type);
+
+                //append all region to select and select the region of the university
+                region.forEach(r => {
+                    $('#edit_region').append(`<option value="${r.region_name}" ${r.region_name == university.region ? 'selected' : ''}>${r.region_name}</option>`);
+                });
+                
+                //append all province that corresponds to province code to select and select the province of the university, but first retrieve region code using region name
+                const regionEntry = region.find(r => r.region_name === university.region);
+                const regionCode = regionEntry ? regionEntry.region_code : null;
+                const retrieveProvince = province.filter(p => p.region_code === regionCode);
+                retrieveProvince.forEach(p => {
+                    $('#edit_province').append(`<option value="${p.province_name}" ${p.province_name == university.province ? 'selected' : ''}>${p.province_name}</option>`);
+                });
+                
+                //append all city that corresponds to province code to select and select the city of the university, but first retrieve province code using province name
+                const provinceEntry = retrieveProvince.find(p => p.province_name === university.province);
+                const provinceCertainCode = provinceEntry ? provinceEntry.province_code : null;
+                const retrieveCity = city.filter(c => c.province_code === provinceCertainCode);
+                retrieveCity.forEach(c => {
+                    $('#edit_city').append(`<option value="${c.city_name}" ${c.city_name == university.city ? 'selected' : ''}>${c.city_name}</option>`);
+                });
+                
+
+                //append all barangay that corresponds to city code to select and select the barangay of the university, but first retrieve city code using city name
+                const cityEntry = retrieveCity.find(c => c.city_name === university.city);
+                const cityCertainCode = cityEntry ? cityEntry.city_code : null;
+                const retrieveBarangay = barangay.filter(b => b.city_code === cityCertainCode);
+                retrieveBarangay.forEach(b => {
+                    $('#edit_barangay').append(`<option value="${b.brgy_name}" ${b.brgy_name == university.barangay ? 'selected' : ''}>${b.brgy_name}</option>`);
+                });
+
+
+                //address
+                // $('#edit_region').val(university.region);
+                // $('#edit_province-text').val(university.province);
+                // $('#edit_city-text').val(university.city);
+                // $('#edit_barangay-text').val(university.barangay);
+                $('#' + modal).toggleClass('hidden');
+            }
+        });
+
+
+    
+        // $('#edit_region').append(`<option value="${region}" selected>${region}</option>`);
+
+        // $('#edit_province').append(`<option value="${province}" selected>${province}</option>`);
+    
+        // $('#edit_city').append(`<option value="${city}" selected>${city}</option>`);
+     
+        // $('#edit_barangay').append(`<option value="${barangay}" selected>${barangay}</option>`);
+        // // $('#edit_barangay-text').val(barangay);
+
+
+        // console.log(region);
+
+    })
+</script>
 
 <script> 
+
+
     let table = new DataTable('#myTable');
     closeModal('add_university_modal');
     closeModal('edit_university_modal');
 
-    function editModal(university_id,university_name,university_description,university_status,region,province,city,barangay,university_email,university_type,modal){
-        $('#edit_university_id').val(university_id);
-        $('#edit_university_name').val(university_name);
-        $('#edit_university_description').val(university_description);
 
-        $('#edit_university_status').val(university_status);
-        $('#edit_region').append(`<option value="${region}" selected>${region}</option>`);
-        $('#edit_region').val(region);
-        // $('#edit_province').append(`<option value="${province}" selected>${province}</option>`);
-        // $('#edit_province-text').val(province);
-        // $('#edit_city').append(`<option value="${city}" selected>${city}</option>`);
-        // $('#edit_city-text').val(city);
-        // $('#edit_barangay').append(`<option value="${barangay}" selected>${barangay}</option>`);
-        // $('#edit_barangay-text').val(barangay);
-
-        $('#edit_university_email').val(university_email);
-        $('#edit_university_type').val(university_type);
-
-        console.log(region);
-
-        $('#' + modal).toggleClass('hidden');
-    }
 
     $('.add_university_btn').click(function(){
         let university_name = $('#university_name').val();
