@@ -2,64 +2,49 @@
 include_once 'header.php';
 include_once '../includes/autoloader.php';
 
-if(isset($_GET['university_id'])){
+if (isset($_GET['university_id'])) {
     $init = new UniversityControllers();
 
-// $init->checkNoSession('isAdmin');
+    // $init->checkNoSession('isAdmin');
     $university_id = $_GET['university_id'];
     $views = new UniversityView();
     $university = $views->displayCertainUniversityView($university_id);
+    $colleges = $views->displayCertainUniversityCollegesView($university_id);
+
 }
 
 
 ?>
 
 <body class="bg-[#f6f6f6]">
-    <div class="main_container p-[2rem]  grid grid-cols-[84%] gap-5">
-        <div class="main_information w-full mt-5">
-            <h1 class="text-xl font-bold"><?= $university['university_name']; ?> Colleges</h1>
-            <div class="w-full flex justify-between">
-            <button type="button" class="back_button flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700"> 
-                <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"> <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" /> </svg> <span>Go back</span> 
-            </button>
+    <div class="main_container p-[2rem] w-full gap-5">
+        <div class="main_information w-[80%] mt-5 mx-auto">
+            <div class="first">
+                <h1 class="text-xl font-bold"><?= $university['university_name']; ?> Colleges</h1>
+                <div class="w-full flex justify-between">
+                    <button type="button" class="back_button flex items-center justify-center w-1/2 px-5 py-2 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
+                        <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+                        </svg> <span>Go back</span>
+                    </button>
 
-                <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_modal" data-modal-toggle="add_university_modal">Add University College</button>
-            </div>
-            <div class="table_container mt-3 bg-white p-[2rem] rounded-md shadow-lg">
-                <table id="myTable" class="display">
-                    <thead>
-                        <tr>
-                            <th>University Name </th>
-                            <th>University Description</th>
-                            <th>University Address</th>
-                            <th>University Email</th>
-                            <th>University Status</th>
-                            <th>University Type</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($universities as $university) : ?>
-                            <tr>
-                                <td><?= $university['university_name']; ?></td>
-                                <td><?= $university['university_description']; ?></td>
-                                <td><?= $university['barangay'].','.$university['city']; ?></td>
-                                <td><?= $university['university_email']; ?></td>
-                                <td><?= $university['university_status']; ?></td>
-                                <td><?= $university['university_type']; ?></td>
-                                <td>
-                                    <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md" university_id="<?= $university['university_id'] ?>">edit</button>
-                                    <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
-                                        <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
-                                    </button>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_modal" data-modal-toggle="add_university_modal">Add University College</button>
+                </div>
+                <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
+                    <?php foreach ($colleges as $college) :?>
+                        <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../imgs/sict.jpg" alt="">
+                            <div class="flex flex-col justify-between p-4 leading-normal">
+                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
+                                <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400"><?= $college['college_description']; ?></p>
+                                <a href="college_courses.php?university_college_id=<?= $college['university_college_id'];?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
             </div>
         </div>
-        
+
     </div>
 </body>
 
@@ -71,8 +56,8 @@ if(isset($_GET['university_id'])){
     let table = new DataTable('#myTable');
     closeModal('add_university_modal');
     closeModal('edit_university_modal');
-    
-    $('.back_button').click(function(){
+
+    $('.back_button').click(function() {
         window.location.href = 'university.php';
     })
 
