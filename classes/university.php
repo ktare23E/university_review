@@ -528,7 +528,7 @@ Class University extends ConnectDatabase{
 
     protected function displayStudents(){
         try{
-            $sql = "SELECT * FROM student";
+            $sql = "SELECT * FROM student_view";
             $stmt = $this->connect()->query($sql);
             $stmt = $stmt->fetchAll();
             return $stmt;
