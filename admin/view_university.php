@@ -3,7 +3,7 @@ include_once 'header.php';
 include_once '../includes/autoloader.php';
 $university_id = $_GET['university_id'];
 include_once './modals/createUniversityCollegeModal.php';
-
+include_once './modals/editUniversityCollegeModal.php';
 if (isset($_GET['university_id'])) {
     $init = new UniversityControllers();
 
@@ -34,12 +34,18 @@ if (isset($_GET['university_id'])) {
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($colleges as $college) :?>
-                        <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                        <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../imgs/<?= $college['logo']?>" alt="">
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
                                 <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400"><?= $college['college_description']; ?></p>
                                 <a href="college_courses.php?university_college_id=<?= $college['university_college_id'];?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="settings cursor-pointer w-6 h-6 absolute top-0 right-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                            </svg>
+                            <div class="edit_settings hidden py-2 px-4 absolute top-0 right-0 bg-gray-100 rounded-lg shadow-lg">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium" onclick='openEditModal(<?= $college["university_college_id"]?>,<?= $college["university_id"]?>,<?= $college["college_id"]?>,<?= json_encode($college["status"])?>,"edit_university_college_modal")'>Edit</button>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -57,12 +63,31 @@ if (isset($_GET['university_id'])) {
 <script>
     let table = new DataTable('#myTable');
     closeModal('add_university_college_modal');
-    closeModal('edit_university_modal');
+    closeModal('edit_university_college_modal');
 
     $('.back_button').click(function() {
         window.location.href = 'university.php';
     })
 
+    $('.settings').click(function() {
+        $(this).siblings('.edit_settings').toggleClass('hidden');
+    })
+
+    //if click outside the edit settings display none
+    $(document).click(function(e) {
+        if (!$(e.target).closest('.settings').length) {
+            $('.edit_settings').addClass('hidden');
+        }
+    })
+
+    function openEditModal(university_college_id,university_id, college_id,status,modal) {
+        $('#edit_university_college_id').val(university_college_id);
+        $('#edit_university_id').val(university_id);
+        $('#edit_college_id').val(college_id);
+        $('#edit_status').val(status);
+        
+        $('#'+ modal).toggleClass('hidden');
+    }
 
 
     $('.add_university_college_btn').click(function() {
