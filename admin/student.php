@@ -36,7 +36,7 @@ $students = $views->studentDataForAdmin();
                                 <td><?= $student['student_email']; ?></td>
                                 <td><?= $student['university_name']; ?></td>
                                 <td>
-                                    <button class="edit px-2 py-1 bg-black text-white rounded-md text-[12px]" onclick='editModal(<?= $course["course_id"]?>,<?= json_encode($course["course_name"]) ?>,<?= json_encode($course["course_description"]) ?>,"edit_course_modal")'>edit</button>
+                                    <button class="edit px-2 py-1 bg-black text-white rounded-md text-[12px]" onclick='editModal(<?= $student["student_id"]?>,<?= json_encode($student["student_firstname"]) ?>,<?= json_encode($student["student_lastname"]) ?>,<?= json_encode($student["student_email"])?>,<?= $student["university_id"]?>,"edit_student_modal")'>edit</button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -49,13 +49,14 @@ $students = $views->studentDataForAdmin();
 <script src="../assets/index.js"></script>
 <script> 
     let table = new DataTable('#myTable');
-    closeModal('add_course');
-    closeModal('edit_course_modal');
+    closeModal('edit_student_modal');
 
-    function editModal(course_id,course_name,course_description,modal){
-        $('#edit_course_id').val(course_id);
-        $('#edit_course_name').val(course_name);
-        $('#edit_course_description').val(course_description);
+    function editModal(student_id,student_firstname,student_lastname,student_email,university_id,modal){
+        $('#edit_student_id').val(student_id);
+        $('#edit_student_firstname').val(student_firstname);
+        $('#edit_student_lastname').val(student_lastname);
+        $('#edit_student_email').val(student_email);
+        $('#edit_university_id').val(university_id);
 
         $('#' + modal).toggleClass('hidden');
     }
