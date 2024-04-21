@@ -122,15 +122,22 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function insertUniversityCollege($university_id,$college_id,$status){
+    protected function insertUniversityCollege($university_id,$college_id,$status,$filename){
         try{
-            $sql = "INSERT INTO university_colleges(university_id,college_id,status) VALUES(?,?,?)";
-            $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$university_id,$college_id,$status]);
-            if($stmt){
-                echo 'success';
-            }else{
-                echo 'error';
+            $upload_dir = '../imgs/';
+            $filename = $_FILES["image"]["name"];
+            //change image file name dynamically
+            $filename = time().'_'.$filename;
+            $destination = $upload_dir . $filename;
+            if(move_uploaded_file($_FILES["image"]["tmp_name"],$destination)){
+                $sql = "INSERT INTO university_colleges (university_id,college_id,status,logo) VALUES(?,?,?,?)";
+                $stmt = $this->connect()->prepare($sql);
+                $stmt->execute([$university_id,$college_id,$status,$filename]);
+                if($stmt){
+                    echo 'success';
+                }else{
+                    echo 'error';
+                }
             }
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();

@@ -1,12 +1,14 @@
 <?php
 include_once 'header.php';
 include_once '../includes/autoloader.php';
+$university_id = $_GET['university_id'];
+include_once './modals/createUniversityCollegeModal.php';
 
 if (isset($_GET['university_id'])) {
     $init = new UniversityControllers();
 
     // $init->checkNoSession('isAdmin');
-    $university_id = $_GET['university_id'];
+
     $views = new UniversityView();
     $university = $views->displayCertainUniversityView($university_id);
     $colleges = $views->displayCertainUniversityCollegesView($university_id);
@@ -28,12 +30,12 @@ if (isset($_GET['university_id'])) {
                         </svg> <span>Go back</span>
                     </button>
 
-                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_modal" data-modal-toggle="add_university_modal">Add University College</button>
+                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_college_modal" data-modal-toggle="add_university_college_modal">Add University College</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($colleges as $college) :?>
                         <div class="flex flex-col items-center w-full bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../imgs/sict.jpg" alt="">
+                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../imgs/<?= $college['logo']?>" alt="">
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
                                 <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400"><?= $college['college_description']; ?></p>
@@ -54,30 +56,26 @@ if (isset($_GET['university_id'])) {
 
 <script>
     let table = new DataTable('#myTable');
-    closeModal('add_university_modal');
+    closeModal('add_university_college_modal');
     closeModal('edit_university_modal');
 
     $('.back_button').click(function() {
         window.location.href = 'university.php';
     })
 
-    $('.add_university_btn').click(function() {
+
+
+    $('.add_university_college_btn').click(function() {
         let formData = new FormData();
         let fileInput = $('#image')[0].files[0];
         formData.append('image', fileInput);
-        formData.append('university_name', $('#university_name').val());
-        formData.append('university_description', $('#university_description').val());
-        formData.append('region', $('#region-text').val());
-        formData.append('province', $('#province-text').val());
-        formData.append('city', $('#city-text').val());
-        formData.append('barangay', $('#barangay-text').val());
-        formData.append('university_email', $('#university_email').val());
-        formData.append('university_type', $('#university_type').val());
-        formData.append('university_status', $('#university_status').val());
-
+        formData.append('university_id', $('#university_id').val());
+        formData.append('college_id', $('#college_id').val());
+        formData.append('status', $('#status').val());
+     
 
         $.ajax({
-            url: '../includes/createUniversity.php',
+            url: '../includes/createUniversityCollege.php',
             type: 'POST',
             data: formData,
             contentType: false,
