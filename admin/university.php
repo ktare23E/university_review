@@ -38,7 +38,7 @@ $universities = $views->retrieveUniversityView();
                             <tr>
                                 <td><?= $university['university_name']; ?></td>
                                 <td><?= $university['university_description']; ?></td>
-                                <td><?= $university['university_address']; ?></td>
+                                <td><?= $university['barangay'].','.$university['city']; ?></td>
                                 <td><?= $university['university_email']; ?></td>
                                 <td><?= $university['university_status']; ?></td>
                                 <td><?= $university['university_type']; ?></td>
