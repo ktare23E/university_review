@@ -13,7 +13,7 @@
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                    Create University College
+                    Edit University College
                 </h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="edit_university_college_modal">
                     <svg class="w-3 h-3" aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14">
@@ -62,8 +62,8 @@
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">PNG,JPG,JPEG only</p>
                     </div>
                 </div>
-                <button class="add_university_college_btn bg-blue-800 p-2 rounded-md text-white" type="button" name="submit">
-                    Create University College
+                <button class="update_university_college_btn bg-blue-800 p-2 rounded-md text-white" type="button" name="update">
+                    update University College
                 </button>
             </form>
         </div>
