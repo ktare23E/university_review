@@ -764,11 +764,11 @@ Class University extends ConnectDatabase{
         }
     }
     
-    protected function updateStudent($student_id,$student_firstname,$student_lastname,$student_email,$student_password,$university_id){
+    protected function updateStudent($student_id,$student_firstname,$student_lastname,$student_email,$university_id){
         try{
-            $sql = "UPDATE student SET student_firstname = ?,student_lastname = ?,student_email = ?,student_password = ?,university_id = ? WHERE student_id = ?";
+            $sql = "UPDATE student SET student_firstname = ?,student_lastname = ?,student_email = ?,university_id = ? WHERE student_id = ?";
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$student_firstname,$student_lastname,$student_email,$student_password,$university_id,$student_id]);
+            $stmt->execute([$student_firstname,$student_lastname,$student_email,$university_id,$student_id]);
             if($stmt){
                 echo 'success';
             }else{

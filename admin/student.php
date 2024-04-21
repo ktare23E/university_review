@@ -61,19 +61,23 @@ $students = $views->studentDataForAdmin();
         $('#' + modal).toggleClass('hidden');
     }
 
-    $('.update_course_btn').click(function(){
-        let edit_course_id =  $('#edit_course_id').val();
-        let edit_course_name = $('#edit_course_name').val();
-        let edit_course_description = $('#edit_course_description').val();
+    $('.update_student_btn').click(function(){
+        let student_id = $('#edit_student_id').val();
+        let student_firstname = $('#edit_student_firstname').val();
+        let student_lastname = $('#edit_student_lastname').val();
+        let student_email = $('#edit_student_email').val();
+        let university_id = $('#edit_university_id').val();
         let update = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/updateCourse.php',
+            url: '../includes/updateStudent.php',
             type: 'POST',
             data : {
-                edit_course_id: edit_course_id,
-                edit_course_name: edit_course_name,
-                edit_course_description: edit_course_description,
+                student_id: student_id,
+                student_firstname: student_firstname,
+                student_lastname: student_lastname,
+                student_email : student_email,
+                university_id: university_id,
                 update: update
             },
             success: function(data){
