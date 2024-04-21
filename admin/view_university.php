@@ -13,6 +13,8 @@ if (isset($_GET['university_id'])) {
     $university = $views->displayCertainUniversityView($university_id);
     $colleges = $views->displayCertainUniversityCollegesView($university_id);
 
+}else{
+    include_once '404.php';
 }
 
 
@@ -39,7 +41,7 @@ if (isset($_GET['university_id'])) {
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
                                 <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400"><?= $college['college_description']; ?></p>
-                                <a href="college_courses.php?university_college_id=<?= $college['university_college_id'];?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
+                                <a href="university_college_courses.php?university_college_id=<?= $college['university_college_id'];?>&university_id=<?= $college['university_id']?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
                             </div>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="settings cursor-pointer w-6 h-6 absolute top-0 right-0">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />

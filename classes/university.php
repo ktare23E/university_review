@@ -593,11 +593,11 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function displayUniversityCourse($university_id){
+    protected function displayUniversityCollegeCourse($university_college_id){
         try{
-            $sql = "SELECT * FROM university_course_view WHERE university_id = ?";
+            $sql = "SELECT * FROM university_college_courses_view WHERE university_college_id = ?";
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$university_id]);
+            $stmt->execute([$university_college_id]);
             $row = $stmt->fetchAll();
             return $row;
         }catch(PDOException $e){
@@ -787,11 +787,11 @@ Class University extends ConnectDatabase{
 
     }
 
-    protected function updateUniversityCourse($university_course_id,$course_id,$status){
+    protected function updateUniversityCourse($university_course_id,$university_college_id,$course_id,$status){
         try{
-            $sql = 'UPDATE university_course SET  course_id = ?,status = ? WHERE university_course_id = ?';
+            $sql = 'UPDATE university_course SET university_college_id = ?, course_id = ?,status = ? WHERE university_course_id = ?';
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$course_id,$status,$university_course_id]);
+            $stmt->execute([$university_college_id,$course_id,$status,$university_course_id]);
             if($stmt){
                 echo 'success';
             }else{
