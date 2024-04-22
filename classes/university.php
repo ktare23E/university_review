@@ -295,6 +295,18 @@ Class University extends ConnectDatabase{
     }
 
     //display or view functionalities
+    protected function displayCertainUniversityImage($university_id){
+        try{
+            $sql = "SELECT * FROM university_images WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $row = $stmt->fetchAll();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayUniversity($pageNumber){
         try{
             $offset = ($pageNumber - 1) * 6; 
@@ -830,10 +842,10 @@ Class University extends ConnectDatabase{
                 $file_size = $university_images['size'][$key];
                 $file_type = $university_images['type'][$key];
 
-                if($file_size > 2097152){
-                    $errors[] = 'File size must be less than 2MB';
-                    continue;
-                }
+                // if($file_size > 2097152){
+                //     $errors[] = 'File size must be less than 2MB';
+                //     continue;
+                // }
 
                 //move uploaded image to destination
                 if(move_uploaded_file($tmp_name,$destination)){

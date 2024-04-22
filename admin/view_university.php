@@ -14,6 +14,7 @@ if (isset($_GET['university_id'])) {
     $views = new UniversityView();
     $university = $views->displayCertainUniversityView($university_id);
     $colleges = $views->displayCertainUniversityCollegesView($university_id);
+    $images = $views->displayCertainUniversityImageView($university_id);
 
 
 }else{
@@ -40,9 +41,9 @@ if (isset($_GET['university_id'])) {
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($colleges as $college) :?>
                         <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <div class="w-full">
+                            <div class="w-full h-56 md:h-64 lg:h-72 xl:h-80">
                                 <!-- Ensure the image covers the full width and height of this div -->
-                                <img class="w-full h-96 object-cover rounded-t-lg md:h-auto md:w-full md:rounded-none md:rounded-t-lg" src="../imgs/<?= $college['logo']?>" alt="">
+                                <img class="w-full h-full object-cover object-center rounded-t-lg md:rounded-none md:rounded-t-lg" src="../imgs/<?= $college['logo']?>" alt="">
                             </div>
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
@@ -65,11 +66,11 @@ if (isset($_GET['university_id'])) {
                     <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_image_modal" data-modal-toggle="add_university_image_modal">Add University Image</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
-                    <?php foreach ($colleges as $college) :?>
+                    <?php foreach ($images as $image) :?>
                         <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <div class="w-full">
+                            <div class="w-full h-56 md:h-64 lg:h-72 xl:h-80">
                                 <!-- Ensure the image covers the full width and height of this div -->
-                                <img class="w-full h-96 object-cover rounded-t-lg md:h-auto md:w-full md:rounded-none md:rounded-t-lg" src="../imgs/<?= $college['logo']?>" alt="">
+                                <img class="w-full h-full object-cover object-center rounded-t-lg md:rounded-none md:rounded-t-lg" src="../imgs/<?= $image['university_image']?>" alt="">
                             </div>
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <a href="university_college_courses.php?university_college_id=<?= $college['university_college_id'];?>&university_id=<?= $college['university_id']?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
@@ -125,7 +126,7 @@ if (isset($_GET['university_id'])) {
     $('.add_university_image_btn').click(function(){
         let files = $('#file_input')[0].files;
         let university_id = <?= $university_id; ?>
-        
+
         if(files.length > 0){
             let formData = new FormData();
             for(let i = 0; i < files.length; i++){

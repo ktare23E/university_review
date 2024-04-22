@@ -81,4 +81,8 @@ class UniversityView extends University{
     public function displayCertainCollegeDataView($university_college_id){
         return $this->displayCertainCollegeData($university_college_id);
     }
+
+    public function displayCertainUniversityImageView($university_id){
+        return $this->displayCertainUniversityImage($university_id);
+    }
 }
