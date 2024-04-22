@@ -13,6 +13,7 @@ if (isset($_GET['university_id'])) {
     $university = $views->displayCertainUniversityView($university_id);
     $colleges = $views->displayCertainUniversityCollegesView($university_id);
 
+
 }else{
     include_once '404.php';
 }
@@ -36,8 +37,11 @@ if (isset($_GET['university_id'])) {
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($colleges as $college) :?>
-                        <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow md:flex-row  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                            <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="../imgs/<?= $college['logo']?>" alt="">
+                        <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="w-full">
+                                <!-- Ensure the image covers the full width and height of this div -->
+                                <img class="w-full h-96 object-cover rounded-t-lg md:h-auto md:w-full md:rounded-none md:rounded-t-lg" src="../imgs/<?= $college['logo']?>" alt="">
+                            </div>
                             <div class="flex flex-col justify-between p-4 leading-normal">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $college['college_name']?></h5>
                                 <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400"><?= $college['college_description']; ?></p>

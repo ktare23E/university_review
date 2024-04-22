@@ -510,6 +510,19 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayCertainCollegeData($university_college_id){
+        try{
+            $sql = "SELECT * FROM university_colleges_view WHERE university_college_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_college_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
+
     protected function displayCertainCollegeEdit($university_college_id){
         try{
             $sql = "SELECT * FROM university_colleges WHERE university_college_id = ?";
@@ -628,6 +641,8 @@ Class University extends ConnectDatabase{
             echo "ERROR! ".$e->getMessage();
         }
     }
+
+    
 
     protected function displayTopFiveCourses($university_id){
         try{
