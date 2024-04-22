@@ -38,6 +38,10 @@ class UniversityView extends University{
         return $this->displayUniversityCount($university_id);
     }
 
+    public function displaySingleUniversityCollegeView($university_college_id){
+        return $this->displaySingleUniversityCollege($university_college_id);
+    }
+
     public function displayTopFiveCoursesView($university_id){
         return $this->displayTopFiveCourses($university_id);
     }
