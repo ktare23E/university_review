@@ -18,7 +18,7 @@ class UniversityControllers extends University{
     }
 
     public function insertUniversityCourseControllers($university_college_id,$course_id,$status,$tuition_per_sem){
-        $this->universityCourse($university_college_id,$course_id,$status,$tuition_per_sem);
+        return $this->universityCourse($university_college_id,$course_id,$status,$tuition_per_sem);
     }
 
     public function insertUniversityCourseReview($university_course_id,$student_id,$course_rating,$course_rating_description){

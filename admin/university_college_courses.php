@@ -2,6 +2,7 @@
 include_once 'header.php';
 include_once '../includes/autoloader.php';
 include_once './modals/createCollegeCourseModal.php';
+include_once './modals/editCollegeCourseModal.php';
 
 if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
     $university_college_id = $_GET['university_college_id'];
@@ -48,7 +49,7 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
                                 <td><?= $course['course_name']; ?></td>
                                 <td><?= $peso.number_format($course['tuition_per_sem'],2,'.',',')?></td>
                                 <td>
-                                    <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md" university_id="<?= $university['university_id'] ?>">edit</button>
+                                    <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='openEditModal(<?=$course["university_course_id"]?>,<?= $course["university_college_id"]?>,<?=$course["course_id"]?>,<?=json_encode($course["status"])?>,<?=$course["tuition_per_sem"]?>,"edit_college_course_modal")'>edit</button>
                                     <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
                                         <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
                                     </button>
@@ -69,7 +70,7 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
 <script>
     let table = new DataTable('#myTable');
     closeModal('add_college_course_modal');
-    closeModal('edit_university_modal');
+    closeModal('edit_college_course_modal');
     
     $('.back_button').click(function(){
         window.location.href = 'view_university.php?university_id=<?= $university_id;?>';
@@ -104,6 +105,17 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
             }
         })
     })
+
+    function openEditModal(university_course_id,university_college_id,course_id,status,tuition_per_sem,modal) {
+        $('#edit_university_course_id').val(university_course_id);
+        $('#edit_university_college_id').val(university_college_id);
+        $('#edit_course_id').val(course_id);
+        $('#edit_status').val(status);
+        $('#edit_tuition_per_sem').val(tuition_per_sem);
+        
+        $('#'+ modal).toggleClass('hidden');
+    }
+
 
     $('.update_university_btn').click(function() {
         let edit_university_id = $('#edit_university_id').val();
