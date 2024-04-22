@@ -183,12 +183,12 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function universityCourse($university_id,$course_id,$status){
+    protected function universityCourse($university_college_id,$course_id,$status,$tuition_per_sem){
         try{
-            $sql = "INSERT INTO university_course (university_id,course_id,status)
-                    VALUES(?,?,?)";
+            $sql = "INSERT INTO university_course (university_college_id,course_id,status,tuition_per_sem)
+                    VALUES(?,?,?,?)";
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$university_id,$course_id,$status]);
+            $stmt->execute([$university_college_id,$course_id,$status,$tuition_per_sem]);
         }catch(PDOException $e){
             echo "ERROR! ".$e->getMessage();
         }

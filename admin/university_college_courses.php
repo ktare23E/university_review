@@ -10,6 +10,9 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
     $init = new UniversityView();
     $data = $init->displayCertainCollegeDataView($university_college_id);
     $courses = $init->displayUniversityCollegeCourseView($university_college_id);
+
+    //peso sign
+    $peso = '&#8369;';
 }else{
     include_once '../404.php';
 }
@@ -43,7 +46,7 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
                             <tr>
                                 <td><?= $course['college_name']; ?></td>
                                 <td><?= $course['course_name']; ?></td>
-                                <td><?= $course['tuition_per_sem']?></td>
+                                <td><?= $peso.number_format($course['tuition_per_sem'],2,'.',',')?></td>
                                 <td>
                                     <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md" university_id="<?= $university['university_id'] ?>">edit</button>
                                     <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
@@ -72,27 +75,24 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
         window.location.href = 'view_university.php?university_id=<?= $university_id;?>';
     })
 
-    $('.add_university_btn').click(function() {
-        let formData = new FormData();
-        let fileInput = $('#image')[0].files[0];
-        formData.append('image', fileInput);
-        formData.append('university_name', $('#university_name').val());
-        formData.append('university_description', $('#university_description').val());
-        formData.append('region', $('#region-text').val());
-        formData.append('province', $('#province-text').val());
-        formData.append('city', $('#city-text').val());
-        formData.append('barangay', $('#barangay-text').val());
-        formData.append('university_email', $('#university_email').val());
-        formData.append('university_type', $('#university_type').val());
-        formData.append('university_status', $('#university_status').val());
+    $('.add_college_course_btn').click(function() {
+        let university_college_id = $('#university_college_id').val();
+        let course_id = $('#course_id').val();
+        let status = $('#status').val();
+        let tuition_per_sem = $('#tuition_per_sem').val();
+        let submit = $(this).attr('name');
 
 
         $.ajax({
-            url: '../includes/createUniversity.php',
+            url: '../includes/createCollegeCourses.php',
             type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
+            data: {
+                university_college_id: university_college_id,
+                course_id: course_id,
+                status: status,
+                tuition_per_sem: tuition_per_sem,
+                submit: submit
+            },
             success: function(data) {
                 console.log(data);
                 if (data == 'success') {
