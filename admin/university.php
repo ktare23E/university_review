@@ -13,9 +13,9 @@ $universities = $views->retrieveUniversityView();
 ?>
 
 <body>
-    <div class="main_container w-screen h-screen bg-[#f6f6f6] grid grid-cols-[13%,84%] gap-5">
+    <div class="main_container p-[2rem] py-0 pl-0 bg-[#f6f6f6] grid grid-cols-[13%,84%] gap-5">
         <?php include_once 'sidebar.php'; ?>
-        <div class="main_information w-full mt-5">
+        <div class="main_information w-full mt-5 mx-auto">
             <h1 class="text-xl font-bold">Universities</h1>
             <div class="w-full flex justify-end">
                 <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_modal" data-modal-toggle="add_university_modal">Add University</button>
@@ -25,7 +25,6 @@ $universities = $views->retrieveUniversityView();
                     <thead>
                         <tr>
                             <th>University Name </th>
-                            <th>University Description</th>
                             <th>University Address</th>
                             <th>University Email</th>
                             <th>University Status</th>
@@ -37,7 +36,6 @@ $universities = $views->retrieveUniversityView();
                         <?php foreach ($universities as $university) : ?>
                             <tr>
                                 <td><?= $university['university_name']; ?></td>
-                                <td><?= $university['university_description']; ?></td>
                                 <td><?= $university['barangay'].','.$university['city']; ?></td>
                                 <td><?= $university['university_email']; ?></td>
                                 <td><?= $university['university_status']; ?></td>
@@ -171,7 +169,13 @@ $universities = $views->retrieveUniversityView();
 </script>
 
 <script>
-    let table = new DataTable('#myTable');
+    let table = new DataTable('#myTable',{
+        searchable: true,
+        fixedHeight: true,
+        responsive: true
+    });
+    // responsive data table
+
     closeModal('add_university_modal');
     closeModal('edit_university_modal');
 
