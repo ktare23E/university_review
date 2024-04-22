@@ -814,6 +814,50 @@ Class University extends ConnectDatabase{
 
     }
 
+    protected function uploadMultipleUniversityImage($university_id,$university_images){
+        try{
+            $upload_dir = '../imgs/';
+            
+            //loop through each uploaded image
+            $university_images = $_FILES['images'];
+            $uploaded_images = [];  
+            $errors = [];
+
+            foreach($university_images['tmp_name'] as $key => $tmp_name){
+                $filename = $university_images['name'][$key];
+                $filename = time().'_'.$filename;
+                $destination = $upload_dir . $filename;
+                $file_size = $university_images['size'][$key];
+                $file_type = $university_images['type'][$key];
+
+                if($file_size > 2097152){
+                    $errors[] = 'File size must be less than 2MB';
+                    continue;
+                }
+
+                //move uploaded image to destination
+                if(move_uploaded_file($tmp_name,$destination)){
+                    $uploaded_images[] = $filename;
+
+                    //insert uploaded image to database
+                    $sql = "INSERT INTO university_images (university_id,university_image) VALUES(?,?)";
+                    $stmt = $this->connect()->prepare($sql);
+                    $stmt->execute([$university_id,$filename]);
+                }else{
+                    $errors[] = 'Failed to upload image';
+                }
+            }
+
+            if(empty($errors)){
+                echo 'success';
+            }else{
+                echo 'error';
+            }
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function updateUniversityCourse($university_course_id,$university_college_id,$course_id,$status,$tuition_per_sem){
         try{
             $sql = 'UPDATE university_course SET university_college_id = ?, course_id = ?,status = ?, tuition_per_sem = ? WHERE university_course_id = ?';

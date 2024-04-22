@@ -4,6 +4,8 @@ include_once '../includes/autoloader.php';
 $university_id = $_GET['university_id'];
 include_once './modals/createUniversityCollegeModal.php';
 include_once './modals/editUniversityCollegeModal.php';
+include_once './modals/createUniversityImage.php';
+
 if (isset($_GET['university_id'])) {
     $init = new UniversityControllers();
 
@@ -57,6 +59,31 @@ if (isset($_GET['university_id'])) {
                     <?php endforeach; ?>
                 </div>
             </div>
+            <div class="second mt-20">
+                <h1 class="text-xl font-bold"><?= $university['university_name']; ?> Image</h1>
+                <div class="w-full flex justify-end">
+                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_image_modal" data-modal-toggle="add_university_image_modal">Add University Image</button>
+                </div>
+                <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
+                    <?php foreach ($colleges as $college) :?>
+                        <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+                            <div class="w-full">
+                                <!-- Ensure the image covers the full width and height of this div -->
+                                <img class="w-full h-96 object-cover rounded-t-lg md:h-auto md:w-full md:rounded-none md:rounded-t-lg" src="../imgs/<?= $college['logo']?>" alt="">
+                            </div>
+                            <div class="flex flex-col justify-between p-4 leading-normal">
+                                <a href="university_college_courses.php?university_college_id=<?= $college['university_college_id'];?>&university_id=<?= $college['university_id']?>" class="bg-blue-700 w-fit text-white py-1 px-2 rounded-md text-sm text-end">View Courses</a>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="settings cursor-pointer w-6 h-6 absolute top-0 right-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                            </svg>
+                            <div class="edit_settings hidden py-2 px-4 absolute top-0 right-0 bg-gray-100 rounded-lg shadow-lg">
+                                <button class="text-blue-600 hover:text-blue-800 font-medium" onclick='openEditModal(<?= $college["university_college_id"]?>,<?= $college["university_id"]?>,<?= $college["college_id"]?>,<?= json_encode($college["status"])?>,"edit_university_college_modal")'>Edit</button>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </div>
 
     </div>
@@ -94,6 +121,38 @@ if (isset($_GET['university_id'])) {
         
         $('#'+ modal).toggleClass('hidden');
     }
+
+    $('.add_university_image_btn').click(function(){
+        let files = $('#file_input')[0].files;
+        let university_id = <?= $university_id; ?>
+        
+        if(files.length > 0){
+            let formData = new FormData();
+            for(let i = 0; i < files.length; i++){
+                formData.append('images[]', files[i]);
+            }
+
+            formData.append('university_id', university_id);
+            $.ajax({
+                url: '../includes/createUniversityImage.php',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    console.log(data);
+                    if(data == 'success'){
+                        alert('Image uploaded successfully');
+                        location.reload();
+                    }else{
+                        alert('Failed to upload image');
+                    }
+                }
+            })
+        }else{
+            alert('Please select an image');
+        }
+    });
 
 
     $('.add_university_college_btn').click(function() {

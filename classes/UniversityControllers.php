@@ -83,5 +83,9 @@ class UniversityControllers extends University{
 
     public function updateUniversityCollegeControllers($university_college_id,$university_id,$college_id,$status){
         return $this->updateUniversityCollege($university_college_id,$university_id,$college_id,$status);
-    }   
+    } 
+    
+    public function uploadMultipleUniversityImageControllers($university_id,$filename){
+        return $this->uploadMultipleUniversityImage($university_id,$filename);
+    }
 }
