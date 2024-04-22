@@ -814,11 +814,11 @@ Class University extends ConnectDatabase{
 
     }
 
-    protected function updateUniversityCourse($university_course_id,$university_college_id,$course_id,$status){
+    protected function updateUniversityCourse($university_course_id,$university_college_id,$course_id,$status,$tuition_per_sem){
         try{
-            $sql = 'UPDATE university_course SET university_college_id = ?, course_id = ?,status = ? WHERE university_course_id = ?';
+            $sql = 'UPDATE university_course SET university_college_id = ?, course_id = ?,status = ?, tuition_per_sem = ? WHERE university_course_id = ?';
             $stmt = $this->connect()->prepare($sql);
-            $stmt->execute([$university_college_id,$course_id,$status,$university_course_id]);
+            $stmt->execute([$university_college_id,$course_id,$status,$tuition_per_sem,$university_course_id]);
             if($stmt){
                 echo 'success';
             }else{

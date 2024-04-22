@@ -117,34 +117,24 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
     }
 
 
-    $('.update_university_btn').click(function() {
-        let edit_university_id = $('#edit_university_id').val();
-        let edit_university_name = $('#edit_university_name').val();
-        let edit_university_description = $('#edit_university_description').val();
-        let edit_university_status = $('#edit_university_status').val();
-        let edit_university_email = $('#edit_university_email').val();
-        let edit_university_type = $('#edit_university_type').val();
-        let edit_region = $('#edit_region').val();
-        let edit_province = $('#edit_province').val();
-        let edit_city = $('#edit_city').val();
-        let edit_barangay = $('#edit_barangay').val();
+    $('.update_college_course_btn').click(function() {
+        let edit_university_course_id = $('#edit_university_course_id').val();
+        let edit_university_college_id = $('#edit_university_college_id').val();
+        let edit_course_id = $('#edit_course_id').val();
+        let edit_status = $('#edit_status').val();
+        let edit_tuition_per_sem = $('#edit_tuition_per_sem').val();
 
         let update = $(this).attr('name');
 
         $.ajax({
-            url: '../includes/updateUniversity.php',
+            url: '../includes/updateCollegeCourse.php',
             type: 'POST',
             data: {
-                edit_university_id: edit_university_id,
-                edit_university_name: edit_university_name,
-                edit_university_description: edit_university_description,
-                edit_university_status: edit_university_status,
-                edit_university_email: edit_university_email,
-                edit_university_type: edit_university_type,
-                edit_region: edit_region,
-                edit_province: edit_province,
-                edit_city: edit_city,
-                edit_barangay: edit_barangay,
+                edit_university_course_id : edit_university_course_id,
+                edit_university_college_id : edit_university_college_id,
+                edit_course_id : edit_course_id,
+                edit_status : edit_status,
+                edit_tuition_per_sem : edit_tuition_per_sem,
                 update: update
             },
             success: function(data) {
