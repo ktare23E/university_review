@@ -307,6 +307,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayCertainUniversityCollegeCourseData($university_id){
+        try{
+            $sql = "SELECT * FROM university_college_courses_view WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $row = $stmt->fetchAll();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayUniversity($pageNumber){
         try{
             $offset = ($pageNumber - 1) * 6; 
