@@ -45,6 +45,9 @@ $universities = $views->retrieveUniversityView();
                                     <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
                                         <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
                                     </button>
+                                    <button class="edit px-2 py-1 bg-orange-900 text-white text-[12px] rounded-md">
+                                        <a href="university_rating.php?university_id=<?= $university['university_id']; ?>">ratings</a>
+                                    </button>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

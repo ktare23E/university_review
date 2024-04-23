@@ -36,7 +36,7 @@ if (isset($_GET['university_id'])) {
                         </svg> <span>Go back</span>
                     </button>
 
-                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_college_modal" data-modal-toggle="add_university_college_modal">Add University College</button>
+                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm rounded-md" data-modal-target="add_university_college_modal" data-modal-toggle="add_university_college_modal">Add University College</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($colleges as $college) :?>
@@ -63,7 +63,7 @@ if (isset($_GET['university_id'])) {
             <div class="second mt-20">
                 <h1 class="text-xl font-bold"><?= $university['university_name']; ?> Image</h1>
                 <div class="w-full flex justify-end">
-                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm" data-modal-target="add_university_image_modal" data-modal-toggle="add_university_image_modal">Add University Image</button>
+                    <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm rounded-md" data-modal-target="add_university_image_modal" data-modal-toggle="add_university_image_modal">Add University Image</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
                     <?php foreach ($images as $image) :?>
