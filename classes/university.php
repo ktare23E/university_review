@@ -678,6 +678,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayCertainCollegeCourseRatingCount($university_course_id){
+        try{
+            $sql = "SELECT COUNT(*) as count FROM university_course_rating WHERE university_course_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_course_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     
 
     protected function displayTopFiveCourses($university_id){
@@ -723,8 +735,16 @@ Class University extends ConnectDatabase{
         }
     }
 
-    protected function testNi(){
-        $test= "Hello World!";
+    protected function displayCertainCOllegeCourseRating($university_course_id){
+        try{
+            $sql = "SELECT * FROM university_course_rating WHERE university_course_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_course_id]);
+            $row = $stmt->fetchAll();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
     }
 
     protected function retrieveStudentDetails($student_id){

@@ -10,12 +10,16 @@ class UniversityView extends University{
         return $this->displayCourse();
     }
 
-    public function testPls(){
-        return $this->testNi();
+    public function displayCertainCOllegeCourseRatingView($displayCertainCOllegeCourseRating){
+        return $this->displayCertainCOllegeCourseRating($displayCertainCOllegeCourseRating);
     }
 
     public function studentDataForAdmin(){
         return $this->displayStudents();
+    }
+
+    public function displayCertainCollegeCourseRatingCountView($university_course_id){
+        return $this->displayCertainCollegeCourseRatingCount($university_course_id);
     }
 
     public function universityData($pageNumber){

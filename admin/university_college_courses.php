@@ -51,7 +51,7 @@ if(isset($_GET['university_college_id']) && isset($_GET['university_id'])){
                                 <td>
                                     <button class="edit_university px-2 py-1 bg-black text-white text-[12px] rounded-md" onclick='openEditModal(<?=$course["university_course_id"]?>,<?= $course["university_college_id"]?>,<?=$course["course_id"]?>,<?=json_encode($course["status"])?>,<?=$course["tuition_per_sem"]?>,"edit_college_course_modal")'>edit</button>
                                     <button class="edit px-2 py-1 bg-green-950 text-white text-[12px] rounded-md">
-                                        <a href="view_university.php?university_id=<?= $university['university_id']; ?>">view</a>
+                                        <a href="view_college_course_rating.php?university_course_id=<?= $course['university_course_id']; ?>">rating</a>
                                     </button>
                                 </td>
                             </tr>
