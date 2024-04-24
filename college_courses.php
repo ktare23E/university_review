@@ -50,6 +50,7 @@ if (isset($_GET['university_college_id'])) {
                                         <h1 class="text-xl font-bold"><?= $course['course_name']; ?></h1>
                                         <!-- <p class="text-gray-700"><?= $course['course_description']; ?></p> -->
                                         <h1 class="text-sm font-bold">Course Fee: <?= $course['tuition_per_sem'] === 0 ? 'Free':$pesoSign.number_format($course['tuition_per_sem'],2,'.',','); ?></h1>
+                                        <p class="course_rating" university_course_id="<?= $course['university_course_id']; ?>"></p>
                                     </div>
                                     <button class="bg-blue-600 text-sm rounded-md p-2 text-white">Rate Course</button>
                                 </div>
@@ -68,6 +69,23 @@ if (isset($_GET['university_college_id'])) {
 <script>
     $('.back_button').click(function() {
         window.location.href = 'view_university_colleges.php?university_id=<?php echo $data['university_id'] ?>';
+    });
+    
+    //display individual course rating
+    $('.course_rating').each(function() {
+        var university_course_id = $(this).attr('university_course_id');
+        var course_rating = $(this);
+        $.ajax({
+            url: 'includes/displayUniversityCourseRating.php',
+            type: 'POST',
+            data: {
+                university_course_id: university_course_id,
+            },
+            success: function(data) {
+                let rating = JSON.parse(data);
+                course_rating.html(`Ratings: ${rating['rating'] === null ? '0':rating['rating']}`);
+            }
+        });
     });
 </script>
 

@@ -58,6 +58,10 @@ class UniversityView extends University{
         return $this->displayUniversityCollegeCourse($university_college_id);
     }
 
+    public function displayCertainCollegeCourseRatingAverageView($university_course_id){
+        return $this->displayCertainCollegeCourseRatingAverage($university_course_id);
+    }
+
     public function tryDataView($university_course_id){
         return $this->tryData($university_course_id);
     }
