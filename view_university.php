@@ -206,7 +206,9 @@ if (isset($_GET['university_id'])) {
 
                 if(data !== 'success'){
                     alert(data);
-                    location.href = 'login.php';
+                    setTimeout(() => {
+                        location.href = 'login.php';
+                    }, 1000);
                 }else{
                     alert('Rating posted');
                     location.reload();
