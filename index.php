@@ -47,7 +47,7 @@
                                     <h5 class=" text-md font-bold tracking-tight text-gray-900"><?= $university['university_name']; ?></h5>
                                     <h5 class="text-md font-bold tracking-tight text-gray-900"><?= $university['university_type']; ?>School</h5>
                                 </div>
-                                <p class="mb-3 font-normal text-gray-700 text-sm">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+                                <p class="mb-3 font-normal text-gray-700 text-sm"></p>
                                 <a href="view_university.php" class="inline-flex items-center px-2 py-1~ text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
                                     Read more
                                     <svg class="ml-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -67,6 +67,9 @@
     //display the university dynamically using ajax
     displayUniversity(1);
 
+    //display the university rating 
+    
+
     function displayUniversity(pageNumber) {
         let isDisplay = true;
 
@@ -83,14 +86,29 @@
                     pageNumber: pageNumber
                 },
                 success: function(response) {
-                  //check dynamically if the main_content container is empty
-        
+                    // find the university_rating class
 
-                      // Update the container's HTML and fade it back in
-                      $('.whole_container').html(response).animate({
-                        opacity: 1
-                        }, 200);
-                        // checkChildElement(); // Call the function here
+                    // Update the container's HTML and fade it back in
+                    $('.whole_container').html(response).animate({
+                    opacity: 1
+                    }, 200);
+                    // checkChildElement(); // Call the function here
+
+                    $('.university_rating').each(function() {
+                        var university_id = $(this).attr('university_id');
+                        var university_rating = $(this);
+                        $.ajax({
+                            url: 'includes/displayUniversityRating.php',
+                            type: 'POST',
+                            data: {
+                                university_id: university_id,
+                            },
+                            success: function(data) {
+                                let rating = JSON.parse(data);
+                                university_rating.html(`Rating: ${rating['rating'] === null ? '0':rating['rating']}`);
+                            }
+                        });
+                    });
 
                 }
             });

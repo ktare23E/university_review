@@ -83,31 +83,39 @@ if (isset($_GET['university_id'])) {
                                 <h1>Address: <?= $row['university_address']; ?></h1>
                                 <h1><?= $row['university_type']; ?> School</h1>
                             </div>
-                            <h2 class="text-base"><?= $avgRating['rating'] === null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating['rating']; ?></h2>
+                            <h2 class="text-base">Ratings: <?= $avgRating['rating'] === null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating['rating']; ?></h2>
                         </div>
                         <h1 class="mt-5 text-base">Description:</h1>
                         <p class="leading-snug text-base"><?= $row['university_description']; ?></p>
                     </div>
-                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[30%] rounded-lg shadow-xl">
+                    <div class="py-[0.5rem] bg-gray-100 px-3 w-[30%] rounded-lg shadow-xl text-center">
                         <h1 class="text-center">University Colleges</h1>
                         <div class="flex flex-col">
+                            <?php if(!empty($UniversityColleges)):?>
                             <ul>
                                 <?php foreach ($UniversityColleges as $college) : ?>
                                     <li class="text-sm"><?= $college['college_name']; ?></li>
                                 <?php endforeach; ?>
                             </ul>
                             <a href="view_university_colleges.php?university_id=<?= $university_id;?>" class="text-sm text-blue-700 underline">View More Details</a>
+                            <?php else:?>
+                                <p class="text-sm mt-7">No Colleges Available</p>
+                            <?php endif;?>
                         </div>
                     </div>
                     <div class="university_courses w-[20%] bg-gray-100 rounded-lg px-2 py-2 shadow-xl">
-                        <h1 class="text-center">Top 5 Courses</h1>
-                        <div class="flex flex-col">
-                            <ul>
-                                <?php foreach ($universityCourseData as $course) : ?>
-                                    <li><?= $course['course_name']; ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                        <?php if(!empty($universityCourseData)):?>
+                            <h1 class="text-center">Top 5 Courses</h1>
+                            <div class="flex flex-col">
+                                <ul>
+                                    <?php foreach ($universityCourseData as $course) : ?>
+                                        <li><?= $course['course_name']; ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php else:?>
+                            <h1 class="text-center">No courses Available Yet</h1>
+                        <?php endif;?>
                     </div>
                 </div>
                 <!-- <div class="rating_section mt-20">
