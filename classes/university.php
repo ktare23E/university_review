@@ -653,6 +653,17 @@ Class University extends ConnectDatabase{
             echo "ERROR! ".$e->getMessage();
         }
     }
+    protected function tryData($university_course_id){
+        try{
+            $sql = "SELECT * FROM university_college_courses_view WHERE university_course_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_course_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
 
     protected function displayUniversityRating($university_id){
         try{
@@ -690,7 +701,17 @@ Class University extends ConnectDatabase{
         }
     }
 
-    
+    protected function displayCollegeCourseAvgRating($university_course_id){
+        try{
+            $sql = "SELECT ROUND(AVG(course_rating),1) as rating FROM university_course_rating WHERE university_course_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_course_id]);
+            $row = $stmt->fetch();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
 
     protected function displayTopFiveCourses($university_id){
         try{

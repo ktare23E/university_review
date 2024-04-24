@@ -22,6 +22,10 @@ class UniversityView extends University{
         return $this->displayCertainCollegeCourseRatingCount($university_course_id);
     }
 
+    public function displayCollegeCourseAvgRatingVIew($university_course_id){
+        return $this->displayCollegeCourseAvgRating($university_course_id);
+    }
+
     public function universityData($pageNumber){
         return $this->displayUniversity($pageNumber);
     }
@@ -52,6 +56,10 @@ class UniversityView extends University{
     
     public function displayUniversityCollegeCourseView($university_college_id){
         return $this->displayUniversityCollegeCourse($university_college_id);
+    }
+
+    public function tryDataView($university_course_id){
+        return $this->tryData($university_course_id);
     }
 
     public function universityRatingData($university_id){
