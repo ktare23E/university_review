@@ -15,10 +15,10 @@ if (isset($_GET['university_id'])) {
     // }
 
     //university rating data
-    // $universityRatingData = $init->universityRatingData($university_id);
+    $universityRatingData = $init->universityRatingData($university_id);
 
     //avg rating
-    // $avgRating = $init->displayRoundAvgRatingView($university_id);
+    $avgRating = $init->displayRoundAvgRatingView($university_id);
     // if($avgRating['rating'] === null){
     //     echo 'wla pay nag rate';
     // }else{
@@ -26,20 +26,20 @@ if (isset($_GET['university_id'])) {
     // }
 
     //retrieve all courses rating
-    // $courseRating = $init->universityCourseRating($university_id);
+    $courseRating = $init->universityCourseRating($university_id);
     // foreach($courseRating as $rating){
     //     foreach($rating as $rate){
     //         echo $rate['course_name'].' = '.$rate['course_rating'].'<br>';
     //     }
     // }
 
-    // $topFiveCourses = $init->displayTopFiveCoursesView($university_id);
+    $topFiveCourses = $init->displayTopFiveCoursesView($university_id);
 
     // foreach($topFiveCourses as $course){
     //     echo $course['course_name'].'='. $course['rating'].'<br>';
     // }
 
-    // $reviewCount = $init->displayUniversityCountView($university_id);
+    $reviewCount = $init->displayUniversityCountView($university_id);
 
     //university colleges
     $UniversityColleges = $init->displayCertainUniversityCollegesView($university_id);

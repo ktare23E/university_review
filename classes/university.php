@@ -716,7 +716,7 @@ Class University extends ConnectDatabase{
     protected function displayTopFiveCourses($university_id){
         try{
             //retrieve top 5 highest rating course 
-            $sql = "SELECT AVG(course_rating) as rating,course_name FROM university_course_rating_view WHERE university_id = ? GROUP BY course_name ORDER BY rating DESC LIMIT 5";
+            $sql = "SELECT AVG(course_rating) as rating,course_name FROM university_college_course_rating_view WHERE university_id = ? GROUP BY course_name ORDER BY rating DESC LIMIT 5";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$university_id]);
             $stmt = $stmt->fetchAll();
@@ -742,7 +742,7 @@ Class University extends ConnectDatabase{
             $course_ratings = [];
             foreach($university_course_id as $id){
                 //retrieve all university course rating using university university_course_id
-                $retrieveSql = "SELECT * FROM university_course_rating_view WHERE university_course_id = ?";
+                $retrieveSql = "SELECT * FROM university_college_course_rating_view WHERE university_course_id = ?";
                 $stmt = $this->connect()->prepare($retrieveSql);
                 $stmt->execute([$id]);
                 $stmt = $stmt->fetchAll(); 

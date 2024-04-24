@@ -189,7 +189,7 @@ CREATE TABLE `university_course_rating` (
   `course_rating_description` varchar(225) NOT NULL,
   `date_occurred` date NOT NULL,
   PRIMARY KEY (`university_course_rating_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Data for the table `university_course_rating` */
 
@@ -199,7 +199,8 @@ insert  into `university_course_rating`(`university_course_rating_id`,`universit
 (4,2,4,3,'Sakto lang sya','2024-04-15'),
 (5,3,4,2,'Bati man sya','2024-04-15'),
 (6,3,4,1,'','0000-00-00'),
-(7,3,1,1,'','0000-00-00');
+(7,3,1,1,'','0000-00-00'),
+(9,11,1,5,'Wow','2024-04-24');
 
 /*Table structure for table `university_images` */
 
@@ -299,6 +300,31 @@ DROP TABLE IF EXISTS `university_college_courses_view`;
  `tuition_per_sem` decimal(10,2) 
 )*/;
 
+/*Table structure for table `university_college_course_rating_view` */
+
+DROP TABLE IF EXISTS `university_college_course_rating_view`;
+
+/*!50001 DROP VIEW IF EXISTS `university_college_course_rating_view` */;
+/*!50001 DROP TABLE IF EXISTS `university_college_course_rating_view` */;
+
+/*!50001 CREATE TABLE  `university_college_course_rating_view`(
+ `university_course_rating_id` int(11) ,
+ `university_course_id` int(11) ,
+ `university_college_id` int(11) ,
+ `university_id` int(11) ,
+ `university_name` varchar(75) ,
+ `college_id` int(11) ,
+ `college_name` varchar(75) ,
+ `course_id` int(11) ,
+ `course_name` varchar(75) ,
+ `student_id` int(11) ,
+ `student_firstname` varchar(75) ,
+ `student_lastname` varchar(75) ,
+ `course_rating` int(11) ,
+ `course_rating_description` varchar(225) ,
+ `date_occurred` date 
+)*/;
+
 /*View structure for view student_view */
 
 /*!50001 DROP TABLE IF EXISTS `student_view` */;
@@ -319,6 +345,13 @@ DROP TABLE IF EXISTS `university_college_courses_view`;
 /*!50001 DROP VIEW IF EXISTS `university_college_courses_view` */;
 
 /*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `university_college_courses_view` AS select `university_course`.`university_course_id` AS `university_course_id`,`university_colleges`.`university_college_id` AS `university_college_id`,`university`.`university_id` AS `university_id`,`university`.`university_name` AS `university_name`,`colleges`.`college_id` AS `college_id`,`colleges`.`college_name` AS `college_name`,`course`.`course_id` AS `course_id`,`course`.`course_name` AS `course_name`,`university_course`.`status` AS `status`,`university_course`.`tuition_per_sem` AS `tuition_per_sem` from ((((`university_course` join `university_colleges` on(`university_course`.`university_college_id` = `university_colleges`.`university_college_id`)) join `university` on(`university_colleges`.`university_id` = `university`.`university_id`)) join `colleges` on(`university_colleges`.`college_id` = `colleges`.`college_id`)) join `course` on(`university_course`.`course_id` = `course`.`course_id`)) */;
+
+/*View structure for view university_college_course_rating_view */
+
+/*!50001 DROP TABLE IF EXISTS `university_college_course_rating_view` */;
+/*!50001 DROP VIEW IF EXISTS `university_college_course_rating_view` */;
+
+/*!50001 CREATE ALGORITHM=UNDEFINED DEFINER=`` SQL SECURITY DEFINER VIEW `university_college_course_rating_view` AS select `university_course_rating`.`university_course_rating_id` AS `university_course_rating_id`,`university_course`.`university_course_id` AS `university_course_id`,`university_colleges`.`university_college_id` AS `university_college_id`,`university`.`university_id` AS `university_id`,`university`.`university_name` AS `university_name`,`colleges`.`college_id` AS `college_id`,`colleges`.`college_name` AS `college_name`,`course`.`course_id` AS `course_id`,`course`.`course_name` AS `course_name`,`student`.`student_id` AS `student_id`,`student`.`student_firstname` AS `student_firstname`,`student`.`student_lastname` AS `student_lastname`,`university_course_rating`.`course_rating` AS `course_rating`,`university_course_rating`.`course_rating_description` AS `course_rating_description`,`university_course_rating`.`date_occurred` AS `date_occurred` from ((((((`university_course_rating` join `university_course` on(`university_course_rating`.`university_course_id` = `university_course`.`university_course_id`)) join `university_colleges` on(`university_course`.`university_college_id` = `university_colleges`.`university_college_id`)) join `university` on(`university_colleges`.`university_id` = `university`.`university_id`)) join `colleges` on(`university_colleges`.`college_id` = `colleges`.`college_id`)) join `course` on(`university_course`.`course_id` = `course`.`course_id`)) join `student` on(`university_course_rating`.`student_id` = `student`.`student_id`)) */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
