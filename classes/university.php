@@ -24,7 +24,7 @@ Class University extends ConnectDatabase{
                         session_start();
                         $_SESSION['student_id'] = $row['student_id'];
                         $_SESSION['isStudent'] = 1;
-                        header("location:student/index.php");
+                        header("location:index.php");
                     }else{
                         header("location:login.php?error=Password does not match!");
                     }

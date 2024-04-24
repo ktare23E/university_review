@@ -1,6 +1,7 @@
 <?php
 include_once 'header.php';
 include_once 'includes/autoloader.php';
+
 if (isset($_GET['university_id'])) {
     $university_id = $_GET['university_id'];
     $init = new UniversityView();
@@ -51,18 +52,10 @@ if (isset($_GET['university_id'])) {
 ?>
 
 
-<body>
-    <div class="parent_class p-[2rem] py-0 bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+<body class="bg-green-50"> 
+    <div class="parent_class p-[2rem] py-0 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%]  mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
-            <div class="header flex justify-between items-center mb-3"> <!-- Adding bottom margin for spacing -->
-                <div class="logo_container flex items-center gap-4"> <!-- Adjusted gap -->
-                    <img src="imgs/logo.jpg" alt="" class="rounded-full w-10 h-10"> <!-- Removed object-cover and mt-5 for logo -->
-                    <h1 class="font-bold text-xl">RateMeSchool</h1> <!-- Adjusted font size -->
-                </div>
-                <div class="py-6">
-                    <a href="login.php" class="-mx-3 bg-black text-white block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:bg-white-50">Log in</a>
-                </div>
-            </div>
+        <?php include_once 'banner.php';?>
 
             <button type="button" class="back_button w-full flex items-center justify-center px-2 py-1 text-sm text-gray-700 transition-colors duration-200 bg-white border rounded-lg gap-x-2 sm:w-auto dark:hover:bg-gray-800 dark:bg-gray-900 hover:bg-gray-100 dark:text-gray-200 dark:border-gray-700">
                 <svg class="w-5 h-5 rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -138,11 +131,25 @@ if (isset($_GET['university_id'])) {
                             <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion(<?= $reviewCount['count']; ?>)</h2>
                         </div>
                         <form class="mb-6">
-                            <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                                <label for="comment" class="sr-only">Your comment</label>
-                                <textarea id="comment" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..." required></textarea>
+                            <div class="grid grid-cols-[70%,25%] gap-5">
+                                <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                                    <label for="comment" class="sr-only">Your comment</label>
+                                    <textarea id="university_rating_description" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..."></textarea>
+                                </div>
+                                <!-- Create container for dropdown rating value with design -->
+                                <div>
+                                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a rating</label>
+                                    <select id="rating" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option selected disabled>Choose a rating</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
                             </div>
-                            <button type="submit" class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            <button type="button" class="university_rating_btn inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                                 Post review
                             </button>
                         </form>
@@ -160,19 +167,7 @@ if (isset($_GET['university_id'])) {
                                         <span class="sr-only">Comment settings</span>
                                     </button>
                                     <!-- Dropdown menu -->
-                                    <div id="dropdownComment1" class="hidden z-10 w-36 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                                        <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownMenuIconHorizontalButton">
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                            </li>
-                                            <li>
-                                                <a href="#" class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    
                                 </footer>
                                 <p class="text-gray-500 dark:text-gray-400"><?= $ratings['university_rating_description']; ?></p>
                                 
@@ -191,6 +186,34 @@ if (isset($_GET['university_id'])) {
     $('.back_button').click(function() {
         window.location.href = 'index.php';
     });
+
+    //university rating
+    $('.university_rating_btn').click(function(){
+        let rating = $('#rating').val();
+        let university_rating_description = $('#university_rating_description').val();
+        let university_id = <?= $university_id; ?>;
+        let isRate = true;
+        $.ajax({
+            url: 'includes/university_rating.php',
+            type: 'POST',
+            data: {
+                rating: rating,
+                university_rating_description: university_rating_description,
+                university_id: university_id,
+                isRate : isRate
+            },
+            success: function(data){
+
+                if(data !== 'success'){
+                    alert(data);
+                    location.href = 'login.php';
+                }else{
+                    alert('Rating posted');
+                    location.reload();
+                }
+            }
+        });
+    })
 </script>
 
 </html>
