@@ -68,7 +68,7 @@ if (isset($_GET['university_course_id'])) {
 <script src="../assets/index.js"></script>
 <script>
     $('.back_button').click(function() {
-        window.location.href = 'university.php';
+        window.location.href = 'view_university.php?university_id=<?= $data['university_id']; ?>';
     });
 </script>
 
