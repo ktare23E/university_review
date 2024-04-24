@@ -39,6 +39,8 @@ if (isset($_GET['university_id'])) {
                     <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm rounded-md" data-modal-target="add_university_college_modal" data-modal-toggle="add_university_college_modal">Add University College</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
+                    <?php if(!empty($colleges)):?>
+                        
                     <?php foreach ($colleges as $college) :?>
                         <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="w-full h-56 md:h-64 lg:h-72 xl:h-80">
@@ -58,6 +60,9 @@ if (isset($_GET['university_id'])) {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?php else:?>
+                        <h1 class="text-xl font-bold text-center w-full">No Colleges Yet.</h1>
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="second mt-20">
@@ -66,6 +71,8 @@ if (isset($_GET['university_id'])) {
                     <button class="add_university py-1 px-1 bg-blue-600 text-white text-sm rounded-md" data-modal-target="add_university_image_modal" data-modal-toggle="add_university_image_modal">Add University Image</button>
                 </div>
                 <div class="university_colleges mt-3 bg-white p-[2rem] rounded-md shadow-lg grid grid-cols-3 gap-4">
+                    <?php if(!empty($images)):?>
+                        
                     <?php foreach ($images as $image) :?>
                         <div class="flex flex-col items-center w-full relative bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="w-full h-56 md:h-64 lg:h-72 xl:h-80">
@@ -83,6 +90,9 @@ if (isset($_GET['university_id'])) {
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    <?php else:?>
+                        <h1 class="text-xl font-bold text-center">No Image Yet.</h1>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
