@@ -96,8 +96,9 @@
                                 university_id: university_id,
                             },
                             success: function(data) {
+                                console.log(data);
                                 let rating = JSON.parse(data);
-                                university_rating.html(`Rating: ${rating['rating'] === null ? '0':rating['rating']}`);
+                                university_rating.html(`Rating: ${rating['rating'] === null ? '0':Math.floor(rating['rating'] * 100) /100}`);
                             }
                         });
                     });
@@ -131,6 +132,23 @@
                         opacity: 1
                         }, 200);
                         // checkChildElement(); // Call the function here
+                        
+                        $('.university_rating').each(function() {
+                        var university_id = $(this).attr('university_id');
+                        var university_rating = $(this);
+                        $.ajax({
+                            url: 'includes/displayUniversityRating.php',
+                            type: 'POST',
+                            data: {
+                                university_id: university_id,
+                            },
+                            success: function(data) {
+                                console.log(data);
+                                let rating = JSON.parse(data);
+                                university_rating.html(`Rating: ${rating['rating'] === null ? '0':Math.floor(rating['rating'] * 100) /100}`);
+                            }
+                        });
+                    });
                 }
             });
         });

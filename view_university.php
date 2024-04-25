@@ -20,6 +20,7 @@ if (isset($_GET['university_id'])) {
 
     //avg rating
     $avgRating = $init->displayRoundAvgRatingView($university_id);
+    $avgRating = bcdiv($avgRating['rating'],'1',2);
     // if($avgRating['rating'] === null){
     //     echo 'wla pay nag rate';
     // }else{
@@ -76,7 +77,7 @@ if (isset($_GET['university_id'])) {
                                 <h1>Address: <?= $row['university_address']; ?></h1>
                                 <h1><?= $row['university_type']; ?> School</h1>
                             </div>
-                            <h2 class="text-base">Ratings: <?= $avgRating['rating'] === null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating['rating']; ?></h2>
+                            <h2 class="text-base">Ratings: <?= $avgRating=== null ?  '<img class="h-5" src="ratings/rating-0.png">' : $avgRating; ?></h2>
                         </div>
                         <h1 class="mt-5 text-base">Description:</h1>
                         <p class="leading-snug text-base"><?= $row['university_description']; ?></p>
@@ -129,6 +130,7 @@ if (isset($_GET['university_id'])) {
                     <div class="w-full px-4 mt-[-3rem]">
                         <div class="flex justify-between items-center mb-2">
                             <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion(<?= $reviewCount['count']; ?>)</h2>
+                            <h2>Total Reviews: <?= $avgRating; ?></h2>
                         </div>
                         <form class="mb-6">
                             <div class="grid grid-cols-[70%,25%] gap-5">
@@ -169,7 +171,10 @@ if (isset($_GET['university_id'])) {
                                     <!-- Dropdown menu -->
                                     
                                 </footer>
-                                <p class="text-gray-500 dark:text-gray-400"><?= $ratings['university_rating_description']; ?></p>
+                                <div class="flex justify-between items-center">
+                                    <p class="text-gray-500 dark:text-gray-400"><?= $ratings['university_rating_description']; ?></p>
+                                    <p  class="text-gray-500 dark:text-gray-400"><?= $ratings['rating']; ?></p>
+                                </div>
                                 
                             </article>
                         <?php endforeach;?>
