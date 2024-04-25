@@ -44,7 +44,9 @@ if (isset($_GET['university_college_id'])) {
                                         <h1 class="text-sm font-bold">Course Fee: <?= $course['tuition_per_sem'] === 0 ? 'Free':$pesoSign.number_format($course['tuition_per_sem'],2,'.',','); ?></h1>
                                         <p class="course_rating" university_course_id="<?= $course['university_course_id']; ?>"></p>
                                     </div>
-                                    <button class="bg-blue-600 text-sm rounded-md p-2 text-white">Rate Course</button>
+                                    <button class="bg-blue-600 text-sm rounded-md p-2 text-white">
+                                        <a href="individual_course_rate.php?university_course_id=<?= $course['university_course_id']; ?>">Rate Course</a>
+                                    </button>
                                 </div>
                         
                             <?php endforeach; ?>

@@ -676,6 +676,10 @@ Class University extends ConnectDatabase{
             echo "ERROR! ".$e->getMessage();
         }
     }
+
+  
+
+
     protected function tryData($university_course_id){
         try{
             $sql = "SELECT * FROM university_college_courses_view WHERE university_course_id = ?";
@@ -802,6 +806,8 @@ Class University extends ConnectDatabase{
             echo "ERROR! ".$e->getMessage();
         }
     }
+
+
 
     protected function displayCertainCollegeCourseRatingAverage($university_course_id){
         try{
