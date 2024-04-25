@@ -224,15 +224,30 @@ Class University extends ConnectDatabase{
                 $university_domain = substr(strchr($university_email, "@"), 1);
                     //check if student go to the same university using email
                 if($student_domain === $university_domain){
-                    $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
-                    VALUES (?,?,?,?,CURRENT_DATE())";
-                    $stmt = $this->connect()->prepare($sql);
-                    $stmt->execute([$university_id,$student_id,$university_rating_description,$rating]);
-                    //check if the query is successful
-                    if($stmt){
-                        echo "success";
+                    //check rating description empty and rating
+                    $errors = [];
+                    if(empty($university_rating_description)){
+                        $errors[] = 'Rating description is required';
+                    }
+
+                    if(empty($rating)){
+                        $errors[] = 'Rating is required';
+                    }
+
+                    if(empty($errors)){
+                        $sql = "INSERT INTO university_rating (university_id,student_id,university_rating_description,rating,date_occurred)
+                        VALUES (?,?,?,?,CURRENT_DATE())";
+                        $stmt = $this->connect()->prepare($sql);
+                        $stmt->execute([$university_id,$student_id,$university_rating_description,$rating]);
+                        //check if the query is successful
+                        if($stmt){
+                            echo "success";
+                        }else{
+                            echo "error";
+                        }
                     }else{
-                        echo "error";
+                        $bulkError = json_encode($errors);
+                        return $bulkError;
                     }
                 }else{
                     echo "different university";

@@ -3,6 +3,11 @@ include_once 'includes/autoloader.php';
     session_start();
     $session = new UniversityControllers();
     $session->checkSession('isAdmin','admin');
+
+    // if(isset($_SESSION['isStudent'])){
+    //     $student_id = $_SESSION['student_id'];
+    //     header("Location: index.php");
+    // }
 ?>
 <!DOCTYPE html>
 <html lang="en">

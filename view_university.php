@@ -202,14 +202,21 @@ if (isset($_GET['university_id'])) {
                 university_id: university_id,
                 isRate : isRate
             },
-            success: function(data){
-
-                if(data !== 'success'){
-                    alert(data);
+            success: function(data,status,xhr){
+                console.log(data);
+                if(data === 'login'){
+                    alert('Please login first to rate');
                     setTimeout(() => {
                         location.href = 'login.php';
                     }, 1000);
-                }else{
+                }else if(data === 'already rated'){
+                    alert('You already rated this university');
+                }else if(data === 'different university'){
+                    alert('You are rating a different university');
+                }else if(data === '["Rating description is required","Rating is required"]'){
+                    alert('Rating and Rating description is required');
+                }
+                else{
                     alert('Rating posted');
                     location.reload();
                 }
