@@ -9,7 +9,11 @@ if (isset($_GET['university_course_id'])) {
     $courseData = $init->tryDataView($university_course_id);
     $ratingsData = $init->displayCertainCOllegeCourseRatingView($university_course_id);
     $ratingCount = $init->displayCertainCollegeCourseRatingCountView($university_course_id);
-    
+    $avgCourseRating = $init->displayCollegeCourseAvgRatingVIew($university_course_id);
+
+
+    $avgRating = bcdiv($avgCourseRating['rating'],'1',2);
+
 } else {
     include_once '404.php';
     die();
@@ -36,7 +40,7 @@ if (isset($_GET['university_course_id'])) {
                     <div class="w-full px-4 mt-[-3rem]">
                         <div class="flex justify-between items-center mb-2">
                             <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion(<?= $ratingCount['count']; ?>)</h2>
-                            <!-- <h2>Total Reviews: <?= $avgRating; ?></h2> -->
+                            <h2>Total Reviews: <?= $avgRating; ?></h2>
                         </div>
                         <form class="mb-6">
                             <div class="grid grid-cols-[70%,25%] gap-5">

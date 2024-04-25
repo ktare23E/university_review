@@ -758,7 +758,7 @@ Class University extends ConnectDatabase{
 
     protected function displayCollegeCourseAvgRating($university_course_id){
         try{
-            $sql = "SELECT ROUND(AVG(course_rating),1) as rating FROM university_course_rating WHERE university_course_id = ?";
+            $sql = "SELECT AVG(course_rating) as rating FROM university_course_rating WHERE university_course_id = ?";
             $stmt = $this->connect()->prepare($sql);
             $stmt->execute([$university_course_id]);
             $row = $stmt->fetch();
