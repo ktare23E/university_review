@@ -49,16 +49,42 @@ if (isset($_GET['university_course_id'])) {
                                     <textarea id="course_rating_description" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..."></textarea>
                                 </div>
                                 <!-- Create container for dropdown rating value with design -->
-                                <div>
-                                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a rating</label>
-                                    <select id="course_rating" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                        <option selected disabled>Choose a rating</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                    </select>
+                                <div class="rating flex items-center">
+                                    <input type="radio" id="star1" name="rating" value="1" class="hidden" />
+                                    <label for="star1" class="flex items-center cursor-pointer" title="1">
+                                        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-orange-400 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    </label>
+                                    <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                                    <label for="star2" class="flex items-center cursor-pointer" title="2">
+                                        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-orange-400 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    </label>
+                                    <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                                    <label for="star3" class="flex items-center cursor-pointer" title="3">
+                                        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-orange-400 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    </label>
+                                    <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                                    <label for="star4" class="flex items-center cursor-pointer" title="4">
+                                        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-orange-400 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    </label>
+                                    <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                                    <label for="star5" class="flex items-center cursor-pointer" title="5">
+                                        <svg class="w-6 h-6 fill-current text-gray-400 hover:text-orange-400 transition-colors duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                            <path d="M0 0h24v24H0z" fill="none"/>
+                                            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+                                        </svg>
+                                    </label>
                                 </div>
                             </div>
                             <button type="button" class="college_course_rating_btn inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
@@ -84,7 +110,7 @@ if (isset($_GET['university_course_id'])) {
                                 </footer>
                                 <div class="flex justify-between items-center">
                                     <p class="text-gray-500 dark:text-gray-400"><?= $ratings['course_rating_description']; ?></p>
-                                    <p  class="text-gray-500 dark:text-gray-400"><?= $ratings['course_rating']; ?></p>
+                                    <img src="ratings/rating-<?= $ratings['course_rating']?>0.png" alt="" class="h-5">
                                 </div>
                                 
                             </article>
@@ -105,9 +131,27 @@ if (isset($_GET['university_course_id'])) {
         window.location.href = 'college_courses.php?university_college_id=<?php echo $courseData['university_college_id'] ?>';
     });
 
+    //rating
+    $('.rating label').click(function() {
+        let rating = $(this).attr('title');
+        $('#rating').val(rating);
+
+        //change colors of stars depending on the rating
+        let star = $(this).attr('title');
+        let starCount = 1;
+        $('.rating label').each(function() {
+            if (starCount <= star) {
+                $(this).children('svg').removeClass('text-gray-400').addClass('text-orange-400');
+            } else {
+                $(this).children('svg').removeClass('text-orange-400').addClass('text-gray-400');
+            }
+            starCount++;
+        });
+    });
+
     $('.college_course_rating_btn').click(function(){
         let course_rating_description = $('#course_rating_description').val();
-        let course_rating = $('#course_rating').val();
+        let course_rating = $('input[name="rating"]:checked').val();
         let university_course_id = <?= $university_course_id; ?>;
         let isCourseRate = true;
 
