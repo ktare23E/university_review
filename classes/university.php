@@ -744,6 +744,18 @@ Class University extends ConnectDatabase{
         }
     }
 
+    protected function displayUniversityImage($university_id){
+        try{
+            $sql = "SELECT * FROM university_images WHERE university_id = ?";
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$university_id]);
+            $row = $stmt->fetchAll();
+            return $row;
+        }catch(PDOException $e){
+            echo "ERROR! ".$e->getMessage();
+        }
+    }
+
     protected function displayCertainCollegeCourseRatingCount($university_course_id){
         try{
             $sql = "SELECT COUNT(*) as count FROM university_course_rating WHERE university_course_id = ?";

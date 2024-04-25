@@ -10,6 +10,10 @@ class UniversityView extends University{
         return $this->displayCourse();
     }
 
+    public function displayUniversityImageView($university_id){
+        return $this->displayUniversityImage($university_id);
+    }
+
     public function displayCertainCOllegeCourseRatingView($displayCertainCOllegeCourseRating){
         return $this->displayCertainCOllegeCourseRating($displayCertainCOllegeCourseRating);
     }
