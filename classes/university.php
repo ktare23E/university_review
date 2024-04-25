@@ -265,7 +265,7 @@ Class University extends ConnectDatabase{
             $stmtCheckStudentRating = $this->connect()->prepare($checkStudentRatingQuery);
             $stmtCheckStudentRating->execute([$student_id]);
             if($stmtCheckStudentRating->rowCount() > 0){
-                echo 'already rated university course';
+                echo 'already rated';
             }else{
                 //retrieve student email
                 $retrieveStudentEmailQuery = "SELECT * FROM student WHERE student_id = ?";
@@ -275,11 +275,12 @@ Class University extends ConnectDatabase{
                 $student_email = $studentRow['student_email'];
 
                 //retrieve university email 
-                $retrieveUniversityEmailQuery = "SELECT * FROM university_course_view WHERE university_course_id = ? GROUP BY university_id";
+                $retrieveUniversityEmailQuery = "SELECT * FROM university_college_courses_view WHERE university_course_id = ? GROUP BY university_id";
                 $stmtResult = $this->connect()->prepare($retrieveUniversityEmailQuery);
                 $stmtResult->execute([$university_course_id]);
                 $universityRow = $stmtResult->fetch();
                 $university_email = $universityRow['university_email'];
+
 
                 //extract domain name
                 $student_domain = substr(strchr($student_email, "@"), 1);
@@ -287,16 +288,31 @@ Class University extends ConnectDatabase{
 
                 //check if student go to the same university using email
                 if($student_domain === $university_domain){
-                    $sql = "INSERT INTO university_course_rating (university_course_id,student_id,course_rating,course_rating_description,date_occurred)
-                    VALUES (?,?,?,?,CURRENT_DATE())";
-                    $stmt = $this->connect()->prepare($sql);
-                    $stmt->execute([$university_course_id,$student_id,$course_rating,$course_rating_description]);
+                    $errors = [];
 
-                    //check if the query is successful
-                    if($stmt){
-                        echo "success";
+                    if(empty($course_rating_description)){
+                        $errors[] = 'Rating description is required';
+                    }
+
+                    if(empty($course_rating)){
+                        $errors[] = 'Rating is required';
+                    }
+
+                    if(empty($errors)){
+                        $sql = "INSERT INTO university_course_rating (university_course_id,student_id,course_rating,course_rating_description,date_occurred)
+                        VALUES (?,?,?,?,CURRENT_DATE())";
+                        $stmt = $this->connect()->prepare($sql);
+                        $stmt->execute([$university_course_id,$student_id,$course_rating,$course_rating_description]);
+    
+                        //check if the query is successful
+                        if($stmt){
+                            echo "success";
+                        }else{
+                            echo "error";
+                        }
                     }else{
-                        echo "error";
+                        $bulkError = json_encode($errors);
+                        return $bulkError;
                     }
                     
                 }else{
@@ -915,6 +931,8 @@ Class University extends ConnectDatabase{
             echo "ERROR! ".$e->getMessage();
         }
     }
+
+
     
     protected function updateStudent($student_id,$student_firstname,$student_lastname,$student_email,$university_id){
         try{

@@ -42,12 +42,12 @@ if (isset($_GET['university_course_id'])) {
                             <div class="grid grid-cols-[70%,25%] gap-5">
                                 <div class="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                                     <label for="comment" class="sr-only">Your comment</label>
-                                    <textarea id="university_rating_description" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..."></textarea>
+                                    <textarea id="course_rating_description" rows="2" class="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800" placeholder="Write a review..."></textarea>
                                 </div>
                                 <!-- Create container for dropdown rating value with design -->
                                 <div>
                                     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select a rating</label>
-                                    <select id="rating" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <select id="course_rating" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                         <option selected disabled>Choose a rating</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -57,7 +57,7 @@ if (isset($_GET['university_course_id'])) {
                                     </select>
                                 </div>
                             </div>
-                            <button type="button" class="university_rating_btn inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
+                            <button type="button" class="college_course_rating_btn inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800">
                                 Post review
                             </button>
                         </form>
@@ -86,7 +86,7 @@ if (isset($_GET['university_course_id'])) {
                             </article>
                             <?php endforeach;?>
                         <?php else:?>
-                            <p class="text-center">No reviews Yet</p>
+                            <p class="text-center">No reviews Yet.</p>
                         <?php endif;?>
                         
                     </div>
@@ -99,6 +99,43 @@ if (isset($_GET['university_course_id'])) {
 <script>
     $('.back_button').click(function() {
         window.location.href = 'college_courses.php?university_college_id=<?php echo $courseData['university_college_id'] ?>';
+    });
+
+    $('.college_course_rating_btn').click(function(){
+        let course_rating_description = $('#course_rating_description').val();
+        let course_rating = $('#course_rating').val();
+        let university_course_id = <?= $university_course_id; ?>;
+        let isCourseRate = true;
+
+        $.ajax({
+            url: 'includes/insertUniversityCollegeCourseRating.php',
+            type: 'POST',
+            data: {
+                course_rating_description: course_rating_description,
+                course_rating: course_rating,
+                university_course_id: university_course_id,
+                isCourseRate: isCourseRate
+            },
+            success: function(data) {
+                console.log(data);
+                if(data === 'login'){
+                    alert('Please login first to rate');
+                    setTimeout(() => {
+                        location.href = 'login.php';
+                    }, 1000);
+                }else if(data === 'already rated'){
+                    alert('You already rated this university');
+                }else if(data === 'different university'){
+                    alert('You are rating a different university');
+                }else if(data === '["Rating description is required","Rating is required"]'){
+                    alert('Rating and Rating description is required');
+                }
+                else{
+                    alert('Rating posted');
+                    location.reload();
+                }
+            }
+        });
     });
     
     //display individual course rating
