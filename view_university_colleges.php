@@ -16,8 +16,8 @@ if (isset($_GET['university_id'])) {
 ?>
 
 
-<body>
-    <div class="parent_class p-[2rem] bg-green-50 flex items-start justify-center"> <!-- Centering the whole page content -->
+<body class="bg-green-50 ">
+    <div class="parent_class p-[2rem] py-0 flex items-start justify-center"> <!-- Centering the whole page content -->
         <div class="w-[70%]  mx-auto  bg-white px-10 py-3 rounded-lg shadow-lg"> <!-- Added padding, rounded corners, and shadow -->
             <?php include_once 'banner.php';?>
 
